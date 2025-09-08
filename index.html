@@ -9,36 +9,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script>
-        function enableDarkMode() {
-            document.body.classList.add("dark-mode");
-            document.body.classList.remove("light-mode");
-            localStorage.setItem("theme", "dark");
-        }
-
-        function enableLightMode() {
-            document.body.classList.add("light-mode");
-            document.body.classList.remove("dark-mode");
-            localStorage.setItem("theme", "light");
-        }
-
-        function checkTheme() {
-            var theme = localStorage.getItem("theme");
-            if (theme === "dark") {
-                enableDarkMode();
-            } else {
-                enableLightMode();
-            }
-        }
-
-        checkTheme();
-    </script>
+    <script src="script.js"></script>
+    
 </head>
 <body>
 <button onclick="enableDarkMode()">🌙</button>
-<button onclick="enableLightMode()">☀️</button><br><br>
+<button onclick="enableLightMode()">☀️</button><br>
 <h1>Hi, I'm Yuriko! 👋</h1>
-
+<time>
+            The current time in Asia/Kolkata
+            <div id="dateTime"></div>
+        </time>
+<br>
 <u>Find me on:</u> <br>
 » <a href="https://reddit.com/u/thefrind54">Reddit</a> «<br>
 » <a href="https://github.com/yurikodesu">GitHub</a> «<br>
@@ -53,7 +35,8 @@
 <br><br>
 <img src="https://media1.tenor.com/m/9aXyxmnYW7oAAAAC/my-dress-up-darling-sono-bisque-doll-wa-koi-wo-suru.gif" width="300">
 <br><br>
-Thanks for visiting my website! 😊
+Thanks for visiting my website! 😊 <br><br>
+<img src="https://mayu.due.moe/get/@yurikodesu?theme=asoul&padding=6" alt="yurikodesu" />
 <div class="bottom"><small>hosted with <a href="https://pages.cloudflare.com/">cloudflare pages.</a></small></div>
 </body>
 </html>

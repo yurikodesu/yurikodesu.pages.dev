@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'SegoeUI';
+    src: url('fonts/SegUIVar.ttf') format('ttf'),
+}
+body {
+    font-family: "SegoeUI", sans-serif;
+    text-align: center;
+    background-color: rgb(158, 92, 128);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+a:link {
+    color: #c7ceff;
+}
+a:visited {
+    color: #cbd2ff;
+}
+a:hover {
+    color: #8d8ead;
+}
+h2 {
+    font-size: 1.5em;
+    color: #f0f0f0;
+}
+time {
+    font-size: 1.2em;
+    font-style: italic;
+    color: #f0f0f0;
+}
+bold {
+    font-weight: bold;
+}
+.footer {
+    position: relative; /* Changed from fixed to relative */
+    bottom: 0; /* Ensure it stays at the bottom */
+    width: 100%;
+    text-align: center;
+    font-size: large;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+.center-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: xx-large;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 60px;
+    padding-bottom: 60px; /* Add padding to the bottom */
+    padding-left: 40px; /* Add padding to the left */
+    padding-right: 4opx; /* Add padding to the right */
+}
+.responsive-img {
+    max-width: 100%;
+    height: auto;
+}
+
+.responsive-img[src="bwaa.jpg"] {
+    max-width: 30%; /* Adjust the size as needed */
+}
+
+@media (max-width: 600px) {
+    body {
+        font-size: smaller;
+        padding: 10px; /* Add padding to the body */
+    }
+    .footer {
+        font-size: small;
+    }
+    .content {
+        padding: 20px; /* Adjust padding for mobile */
+    }
+    .responsive-img[src="bwaa.jpg"] {
+        max-width: 50%; /* Adjust image size for mobile */
+    }
+}
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Adjust spacing between links */
+    margin-bottom: 20px; /* Add spacing below the links section */
+}
+
+.responsive-img {
+    display: block;
+    margin: 20px auto; /* Center the image and add spacing */
+}
+
+a {
+    display: inline-block;
+    margin: 10px 0; /* Add spacing around links */
+}
