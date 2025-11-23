@@ -1,41 +1,348 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://s4.anilist.co/file/anilistcdn/user/avatar/large/b7004679-IuL15y1VMsk0.png">
-    <title>Hey!👋</title>
-    <link href="style.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <script src="script.js"></script>
-    
+    <title>Yuriko | Personal Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Cursor for typing effect */
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Fade Up Utility */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #fb7185, #a78bfa, #2dd4bf); /* Rose to Purple to Teal */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradientMove 5s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
 </head>
-<body>
-<button onclick="enableDarkMode()">🌙</button>
-<button onclick="enableLightMode()">☀️</button><br>
-<h1>Hi, I'm Yuriko! 👋</h1>
-<time>
-            The current time in Asia/Kolkata
-            <div id="dateTime"></div>
-        </time>
-<br>
-<u>Find me on:</u> <br>
-» <a href="https://reddit.com/u/thefrind54">Reddit</a> «<br>
-» <a href="https://github.com/yurikodesu">GitHub</a> «<br>
-» <a href="https://discord.com/users/947775206141870111">Discord</a> «<br>
-» <a href="https://anilist.co/user/Yuriko/">Anilist</a> «<br>
-» <a href="https://x.com/yuriko_o_">X</a> «<br>
-» <a href="https://www.last.fm/user/itsyuriko">last.fm</a> «<br>
-» <a href="https://open.spotify.com/user/31wll5fthvyw7yqkrrdmbwgb5fje?si=29c6548694af457f">Spotify</a> «<br>
-<br><br>
-<img src="https://discord.c99.nl/widget/theme-3/947775206141870111.png" width=300><br>
-<img src="https://spotify-github-profile.kittinanx.com/api/view?uid=31wll5fthvyw7yqkrrdmbwgb5fje&cover_image=true&theme=natemoo-re&show_offline=false&background_color=121212&interchange=true&bar_color=53b14f&bar_color_cover=true">
-<br><br>
-<img src="https://media1.tenor.com/m/9aXyxmnYW7oAAAAC/my-dress-up-darling-sono-bisque-doll-wa-koi-wo-suru.gif" width="300">
-<br><br>
-Thanks for visiting my website! 😊 <br><br>
-<div class="bottom"><small>hosted with <a href="https://pages.cloudflare.com/">cloudflare pages.</a></small></div>
+<body class="bg-slate-950 text-slate-300 font-sans selection:bg-rose-500/30 selection:text-rose-200">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 px-6 py-4 backdrop-blur-md bg-slate-950/70 border-b border-white/5">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-tighter text-white">Yuriko<span class="text-rose-500">.</span></a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-rose-400 transition-colors">About Me</a>
+                <a href="#interests" class="hover:text-rose-400 transition-colors">Interests</a>
+                <a href="#socials" class="hover:text-rose-400 transition-colors">Socials</a>
+            </div>
+            <a href="#socials" class="px-4 py-2 text-sm font-medium text-slate-950 bg-white rounded-full hover:bg-rose-50 transition-colors duration-300">
+                Say Hi
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Glows -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-600/20 rounded-full blur-[128px] -z-10 animate-float"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-600/20 rounded-full blur-[128px] -z-10 animate-float" style="animation-delay: -2s;"></div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <p class="fade-up text-rose-400 font-medium tracking-wide mb-4">WELCOME TO MY WORLD</p>
+            <h1 class="fade-up text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
+                Hey, I'm Yuriko. <br />
+                I am <span id="typewriter" class="text-gradient"></span><span class="cursor-blink text-white">|</span>
+            </h1>
+            <p class="fade-up text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Just a student navigating through equations and anime episodes. Welcome to my personal page.
+            </p>
+            <div class="fade-up flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#about" class="group relative px-8 py-3 bg-rose-600 text-white rounded-full font-medium transition-all hover:bg-rose-700 hover:shadow-lg hover:shadow-rose-500/25 flex items-center justify-center gap-2">
+                    Get to know me
+                    <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-1 transition-transform"></i>
+                </a>
+                <a href="#interests" class="px-8 py-3 bg-white/5 border border-white/10 text-white rounded-full font-medium transition-all hover:bg-white/10 flex items-center justify-center gap-2">
+                    What I like
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+            <i data-lucide="mouse" class="w-6 h-6 text-slate-400"></i>
+        </div>
+    </header>
+
+    <!-- Bio / About Section -->
+    <section id="about" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <!-- Image Side -->
+                <div class="fade-up relative order-2 md:order-1">
+                    <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl shadow-rose-500/10 group">
+                        <!-- Placeholder Image (Anime Aesthetic) -->
+                        <img 
+                            src="https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=2568&auto=format&fit=crop" 
+                            alt="Anime Style Aesthetic" 
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        >
+                        <!-- Overlay gradient -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
+                        
+                        <!-- Floating Card -->
+                        <div class="absolute bottom-6 left-6 right-6 p-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-xl">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 bg-rose-500/20 rounded-lg text-rose-400">
+                                    <i data-lucide="clock" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-slate-400 uppercase tracking-wider">Time in India</p>
+                                    <p id="clock" class="text-sm font-medium text-white">Loading...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text Side -->
+                <div class="fade-up order-1 md:order-2 space-y-8">
+                    <div>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">About Me ✌️</h2>
+                        <div class="space-y-6 text-slate-400 leading-relaxed text-lg">
+                            <p>
+                                Hey! I am <span class="text-rose-400 font-medium">Yuriko</span>. Currently in <strong>11th grade (PCM)</strong>, trying to survive Physics and Math! 📚
+                            </p>
+                            <p>
+                                My birthday is on <strong>31st January</strong> ♒. When I'm not studying, I'm usually lost in music, binge-watching anime, or reading manga.
+                            </p>
+                            <p>
+                                I watch and read all genres, although my personal favorites are <span class="text-white">Romance</span>, <span class="text-white">Action</span>, and <span class="text-white">Slice of Life</span>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Stats / Details -->
+                    <div class="grid grid-cols-2 gap-6 pt-4 border-t border-white/10">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <i data-lucide="graduation-cap" class="w-4 h-4 text-rose-400"></i>
+                                <h3 class="font-bold text-white">Grade 11</h3>
+                            </div>
+                            <p class="text-sm text-slate-500">Science Stream (PCM)</p>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <i data-lucide="cake" class="w-4 h-4 text-rose-400"></i>
+                                <h3 class="font-bold text-white">Jan 31st</h3>
+                            </div>
+                            <p class="text-sm text-slate-500">Aquarius</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Grid -->
+    <section id="interests" class="py-24 bg-slate-900/50">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="fade-up text-3xl font-bold text-white mb-12 text-center">Things I Love</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-rose-500/50 transition-colors duration-300 group">
+                    <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-rose-400">
+                        <i data-lucide="book-open"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Animanga</h3>
+                    <p class="text-slate-400 text-sm">Action to Slice of Life. Always looking for recommendations!</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-violet-500/50 transition-colors duration-300 group" style="transition-delay: 100ms;">
+                    <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-violet-400">
+                        <i data-lucide="gamepad-2"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Gaming & Tech</h3>
+                    <p class="text-slate-400 text-sm">Fascinated by new tech and spending hours gaming.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-teal-500/50 transition-colors duration-300 group" style="transition-delay: 200ms;">
+                    <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-teal-400">
+                        <i data-lucide="activity"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Badminton</h3>
+                    <p class="text-slate-400 text-sm">I play a bit of badminton to stay active!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Links Section -->
+    <section id="socials" class="py-24">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h2 class="fade-up text-3xl font-bold text-white mb-12">Connect with me</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <!-- GitHub -->
+                <a href="https://github.com/yurikodesu" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group flex flex-col items-center justify-center gap-3">
+                    <i data-lucide="github" class="w-8 h-8 text-white group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-slate-300">GitHub</span>
+                </a>
+
+                <!-- Reddit -->
+                <a href="https://www.reddit.com/user/thefrind54" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-orange-500/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 50ms;">
+                    <i data-lucide="smile" class="w-8 h-8 text-orange-500 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-slate-300">Reddit</span>
+                </a>
+
+                <!-- Discord -->
+                <a href="https://discord.com/users/947775206141870111" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-indigo-500/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 100ms;">
+                    <i data-lucide="message-circle" class="w-8 h-8 text-indigo-400 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-slate-300">Discord</span>
+                </a>
+
+                <!-- Anilist -->
+                <a href="https://anilist.co/user/yurikodesu/" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-blue-500/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 150ms;">
+                    <i data-lucide="monitor-play" class="w-8 h-8 text-blue-400 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-slate-300">Anilist</span>
+                </a>
+
+                <!-- X / Twitter -->
+                <a href="https://x.com/yurikodesu" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-blue-400/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 200ms;">
+                    <i data-lucide="twitter" class="w-8 h-8 text-blue-400 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-slate-300">Twitter / X</span>
+                </a>
+
+                <!-- Last.fm -->
+                <a href="https://www.last.fm/user/yurikodesu" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-red-500/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 250ms;">
+                    <i data-lucide="radio" class="w-8 h-8 text-red-500 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-slate-300">Last.fm</span>
+                </a>
+
+                 <!-- Spotify -->
+                 <a href="https://open.spotify.com/user/yurikodesu" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-green-500/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 300ms;">
+                    <i data-lucide="music" class="w-8 h-8 text-green-500 group-hover:scale-110 transition-transform"></i>
+                    <span class="text-sm font-medium text-slate-300">Spotify</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 border-t border-white/5 bg-slate-950">
+        <div class="max-w-6xl mx-auto px-6 text-center text-slate-600 text-sm">
+            <p>© 2024 Yuriko. Just vibing on the internet.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Clock Functionality (Asia/Kolkata)
+        function updateClock() {
+            const options = { 
+                timeZone: 'Asia/Kolkata', 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit',
+                hour12: true
+            };
+            const formatter = new Intl.DateTimeFormat('en-US', options);
+            document.getElementById('clock').textContent = formatter.format(new Date());
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Typewriter Effect
+        const textElement = document.getElementById('typewriter');
+        const phrases = ["a Student", "into Animanga", "a Gamer", "into Tech"];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typeSpeed = 100;
+
+        function type() {
+            const currentPhrase = phrases[phraseIndex];
+            
+            if (isDeleting) {
+                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+                typeSpeed = 50; 
+            } else {
+                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+                typeSpeed = 100; 
+            }
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                isDeleting = true;
+                typeSpeed = 2000; 
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500; 
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        document.addEventListener('DOMContentLoaded', type);
+
+        // Intersection Observer for Fade-up Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
