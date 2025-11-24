@@ -1,348 +1,383 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuriko | Personal Home</title>
+    <title>Yuriko | Bio</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- FontAwesome for Icons (Updated to 6.5.2 for X logo support) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cat: {
+                            base: '#1e1e2e',
+                            mantle: '#181825',
+                            crust: '#11111b',
+                            text: '#cdd6f4',
+                            subtext1: '#bac2de',
+                            subtext0: '#a6adc8',
+                            surface2: '#585b70',
+                            surface1: '#45475a',
+                            surface0: '#313244',
+                            overlay0: '#6c7086',
+                            blue: '#89b4fa',
+                            lavender: '#b4befe',
+                            sapphire: '#74c7ec',
+                            sky: '#89dceb',
+                            red: '#f38ba8',
+                            maroon: '#eba0ac',
+                            peach: '#fab387',
+                            yellow: '#f9e2af',
+                            green: '#a6e3a1',
+                            teal: '#94e2d5',
+                            pink: '#f5c2e7',
+                            mauve: '#cba6f7',
+                            flamingo: '#f2cdcd',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <style>
-        /* Custom Animations */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1e1e2e; /* Catppuccin Base */
+            color: #cdd6f4; /* Catppuccin Text */
+            overflow-x: hidden;
+            cursor: none;
         }
 
-        .animate-float {
-            animation: float 6s ease-in-out infinite;
+        /* Animated Background */
+        .bg-animate {
+            background: linear-gradient(-45deg, #1e1e2e, #181825, #11111b, #313244); /* Base, Mantle, Crust, Surface0 */
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
         }
 
-        /* Cursor for typing effect */
-        .cursor-blink {
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        /* Fade Up Utility */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Gradient Text */
-        .text-gradient {
-            background: linear-gradient(to right, #fb7185, #a78bfa, #2dd4bf); /* Rose to Purple to Teal */
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% auto;
-            animation: gradientMove 5s linear infinite;
-        }
-
-        @keyframes gradientMove {
+        @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(49, 50, 68, 0.4); /* Surface0 with opacity */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(186, 194, 222, 0.1); /* Subtext1 border */
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e1e2e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cba6f7; /* Mauve */
+            border-radius: 4px;
+        }
+
+        /* Cursor Styles */
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cba6f7; /* Mauve */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.3s, height 0.3s;
+            mix-blend-mode: difference;
+        }
+
+        #cursor-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background-color: #cba6f7; /* Mauve */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Trail Canvas */
+        #trail-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+        }
+
+        /* Hover State for Cursor */
+        body.hovering #cursor {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(203, 166, 247, 0.1); /* Mauve transparent */
+            border-color: transparent;
+        }
+
+        /* Fade In Animation */
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+
+        /* Social Icon Hover */
+        .social-link {
+            transition: all 0.3s ease;
+        }
+        .social-link:hover {
+            transform: translateY(-5px);
+            color: #cba6f7; /* Mauve */
+        }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-300 font-sans selection:bg-rose-500/30 selection:text-rose-200">
+<body>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 top-0 left-0 px-6 py-4 backdrop-blur-md bg-slate-950/70 border-b border-white/5">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="#" class="text-xl font-bold tracking-tighter text-white">Yuriko<span class="text-rose-500">.</span></a>
-            <div class="hidden md:flex space-x-8 text-sm font-medium">
-                <a href="#about" class="hover:text-rose-400 transition-colors">About Me</a>
-                <a href="#interests" class="hover:text-rose-400 transition-colors">Interests</a>
-                <a href="#socials" class="hover:text-rose-400 transition-colors">Socials</a>
-            </div>
-            <a href="#socials" class="px-4 py-2 text-sm font-medium text-slate-950 bg-white rounded-full hover:bg-rose-50 transition-colors duration-300">
-                Say Hi
-            </a>
-        </div>
-    </nav>
+    <!-- Background Elements -->
+    <div class="bg-animate"></div>
+    <canvas id="trail-canvas"></canvas>
+    
+    <!-- Custom Cursor Elements -->
+    <div id="cursor"></div>
+    <div id="cursor-dot"></div>
 
-    <!-- Hero Section -->
-    <header class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <!-- Background Glows -->
-        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-rose-600/20 rounded-full blur-[128px] -z-10 animate-float"></div>
-        <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-600/20 rounded-full blur-[128px] -z-10 animate-float" style="animation-delay: -2s;"></div>
-
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <p class="fade-up text-rose-400 font-medium tracking-wide mb-4">WELCOME TO MY WORLD</p>
-            <h1 class="fade-up text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
-                Hey, I'm Yuriko. <br />
-                I am <span id="typewriter" class="text-gradient"></span><span class="cursor-blink text-white">|</span>
-            </h1>
-            <p class="fade-up text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-                Just a student navigating through equations and anime episodes. Welcome to my personal page.
-            </p>
-            <div class="fade-up flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#about" class="group relative px-8 py-3 bg-rose-600 text-white rounded-full font-medium transition-all hover:bg-rose-700 hover:shadow-lg hover:shadow-rose-500/25 flex items-center justify-center gap-2">
-                    Get to know me
-                    <i data-lucide="arrow-down" class="w-4 h-4 group-hover:translate-y-1 transition-transform"></i>
-                </a>
-                <a href="#interests" class="px-8 py-3 bg-white/5 border border-white/10 text-white rounded-full font-medium transition-all hover:bg-white/10 flex items-center justify-center gap-2">
-                    What I like
-                </a>
-            </div>
-        </div>
+    <!-- Main Content -->
+    <main class="min-h-screen flex items-center justify-center p-4 relative z-10">
         
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
-            <i data-lucide="mouse" class="w-6 h-6 text-slate-400"></i>
-        </div>
-    </header>
-
-    <!-- Bio / About Section -->
-    <section id="about" class="py-24 relative">
-        <div class="max-w-6xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <!-- Image Side -->
-                <div class="fade-up relative order-2 md:order-1">
-                    <div class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl shadow-rose-500/10 group">
-                        <!-- Placeholder Image (Anime Aesthetic) -->
-                        <img 
-                            src="https://i.ibb.co/LXxGnT7v/1581-avatar.jpg" 
-                            alt="Anime Style Aesthetic" 
-                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                        >
-                        <!-- Overlay gradient -->
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
-                        
-                        <!-- Floating Card -->
-                        <div class="absolute bottom-6 left-6 right-6 p-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-xl">
-                            <div class="flex items-center gap-3">
-                                <div class="p-2 bg-rose-500/20 rounded-lg text-rose-400">
-                                    <i data-lucide="clock" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <p class="text-xs text-slate-400 uppercase tracking-wider">Time in India</p>
-                                    <p id="clock" class="text-sm font-medium text-white">Loading...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Text Side -->
-                <div class="fade-up order-1 md:order-2 space-y-8">
-                    <div>
-                        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">About Me ✌️</h2>
-                        <div class="space-y-6 text-slate-400 leading-relaxed text-lg">
-                            <p>
-                                Hey! I am <span class="text-rose-400 font-medium">Yuriko</span>. Currently in <strong>11th grade (PCM)</strong>, trying to survive Physics, Chemistry, and Maths! 📚
-                            </p>
-                            <p>
-                                My birthday is on <strong>31st January</strong> ♒. When I'm not studying, I'm usually lost in music, binge-watching anime, or reading manga.
-                            </p>
-                            <p>
-                                I watch and read all genres, although my personal favorites are <span class="text-white">Romance</span>, <span class="text-white">Action</span>, and <span class="text-white">Slice of Life</span>.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Stats / Details -->
-                    <div class="grid grid-cols-2 gap-6 pt-4 border-t border-white/10">
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <i data-lucide="graduation-cap" class="w-4 h-4 text-rose-400"></i>
-                                <h3 class="font-bold text-white">Grade 11</h3>
-                            </div>
-                            <p class="text-sm text-slate-500">Science Stream (PCM)</p>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2 mb-1">
-                                <i data-lucide="cake" class="w-4 h-4 text-rose-400"></i>
-                                <h3 class="font-bold text-white">Jan 31st</h3>
-                            </div>
-                            <p class="text-sm text-slate-500">Aquarius</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interests Grid -->
-    <section id="interests" class="py-24 bg-slate-900/50">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="fade-up text-3xl font-bold text-white mb-12 text-center">Things I Love</h2>
+        <div class="glass-card w-full max-w-2xl rounded-3xl p-8 md:p-12 fade-in-up">
             
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Card 1 -->
-                <div class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-rose-500/50 transition-colors duration-300 group">
-                    <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-rose-400">
-                        <i data-lucide="book-open"></i>
+            <!-- Header / Profile -->
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
+                <!-- Avatar Placeholder with Glow -->
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-cat-mauve via-cat-pink to-cat-blue rounded-full blur opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="relative w-32 h-32 rounded-full overflow-hidden border-2 border-cat-surface1 bg-cat-mantle flex items-center justify-center">
+                        <img src="https://i.ibb.co/H5P4znc/download-25-modified.png" alt="Yuriko" class="w-full h-full object-cover">
                     </div>
-                    <h3 class="text-lg font-semibold text-white mb-2">Animanga</h3>
-                    <p class="text-slate-400 text-sm">Action to Slice of Life. Always looking for recommendations!</p>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-violet-500/50 transition-colors duration-300 group" style="transition-delay: 100ms;">
-                    <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-violet-400">
-                        <i data-lucide="gamepad-2"></i>
+                <div class="text-center md:text-left flex-1">
+                    <h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cat-text to-cat-lavender mb-2">Yuriko</h1>
+                    <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-4 text-sm font-medium text-cat-subtext0">
+                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1">11th Grade (PCM)</span>
+                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-cake-candles mr-2 text-cat-pink"></i>Jan 31</span>
                     </div>
-                    <h3 class="text-lg font-semibold text-white mb-2">Gaming & Tech</h3>
-                    <p class="text-slate-400 text-sm">Fascinated by new tech and spending hours gaming.</p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-teal-500/50 transition-colors duration-300 group" style="transition-delay: 200ms;">
-                    <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center mb-4 text-teal-400">
-                        <i data-lucide="activity"></i>
-                    </div>
-                    <h3 class="text-lg font-semibold text-white mb-2">Badminton</h3>
-                    <p class="text-slate-400 text-sm">I play a bit of badminton to stay active!</p>
+                    <p class="text-cat-subtext1 leading-relaxed max-w-md mx-auto md:mx-0">
+                        Hey! I'm into music, animanga, tech, gaming, and a bit of badminton! 
+                        I watch and read all genres, although my personal favorites are romance, action, and slice of life.
+                    </p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Social Links Section -->
-    <section id="socials" class="py-24">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <h2 class="fade-up text-3xl font-bold text-white mb-12">Connect with me</h2>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <!-- GitHub -->
-                <a href="https://github.com/yurikodesu" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-all duration-300 group flex flex-col items-center justify-center gap-3">
-                    <i data-lucide="github" class="w-8 h-8 text-white group-hover:scale-110 transition-transform"></i>
-                    <span class="text-sm font-medium text-slate-300">GitHub</span>
-                </a>
+            <hr class="border-cat-surface1/50 mb-8 fade-in-up delay-100">
 
-                <!-- Reddit -->
-                <a href="https://www.reddit.com/user/thefrind54" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-orange-500/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 50ms;">
-                    <i data-lucide="smile" class="w-8 h-8 text-orange-500 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-sm font-medium text-slate-300">Reddit</span>
-                </a>
+            <!-- Interests Grid -->
+            <div class="mb-8 fade-in-up delay-200">
+                <h3 class="text-sm uppercase tracking-wider text-cat-overlay0 font-semibold mb-4">Interests</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-music mr-2 text-cat-blue"></i>Music</span>
+                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-book-open mr-2 text-cat-peach"></i>Animanga</span>
+                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-laptop-code mr-2 text-cat-teal"></i>Tech</span>
+                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-gamepad mr-2 text-cat-green"></i>Gaming</span>
+                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-feather mr-2 text-cat-yellow"></i>Badminton</span>
+                </div>
+            </div>
 
-                <!-- Discord -->
-                <a href="https://discord.com/users/947775206141870111" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-indigo-500/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 100ms;">
-                    <i data-lucide="message-circle" class="w-8 h-8 text-indigo-400 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-sm font-medium text-slate-300">Discord</span>
-                </a>
+            <!-- Social Links -->
+            <div class="fade-in-up delay-300">
+                <h3 class="text-sm uppercase tracking-wider text-cat-overlay0 font-semibold mb-4">Connect</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    
+                    <a href="https://x.com/yuriko_o_" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
+                        <!-- Use fa-brands fa-x-twitter which is standard in v6 -->
+                        <i class="fa-brands fa-x-twitter text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs text-cat-subtext0">Twitter/X</span>
+                    </a>
 
-                <!-- Anilist -->
-                <a href="https://anilist.co/user/yurikodesu/" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-blue-500/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 150ms;">
-                    <i data-lucide="monitor-play" class="w-8 h-8 text-blue-400 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-sm font-medium text-slate-300">Anilist</span>
-                </a>
+                    <a href="https://discord.com/users/947775206141870111" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
+                        <i class="fab fa-discord text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs text-cat-subtext0">Discord</span>
+                    </a>
 
-                <!-- X / Twitter -->
-                <a href="https://x.com/yurikodesu" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-blue-400/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 200ms;">
-                    <i data-lucide="twitter" class="w-8 h-8 text-blue-400 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-sm font-medium text-slate-300">Twitter / X</span>
-                </a>
+                    <a href="https://github.com/yurikodesu" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
+                        <i class="fab fa-github text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs text-cat-subtext0">GitHub</span>
+                    </a>
 
-                <!-- Last.fm -->
-                <a href="https://www.last.fm/user/yurikodesu" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-red-500/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 250ms;">
-                    <i data-lucide="radio" class="w-8 h-8 text-red-500 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-sm font-medium text-slate-300">Last.fm</span>
-                </a>
+                    <a href="https://reddit.com/u/thefrind54" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
+                        <i class="fab fa-reddit-alien text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs text-cat-subtext0">Reddit</span>
+                    </a>
 
-                 <!-- Spotify -->
-                 <a href="https://open.spotify.com/user/yurikodesu" target="_blank" class="fade-up p-6 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-green-500/30 transition-all duration-300 group flex flex-col items-center justify-center gap-3" style="transition-delay: 300ms;">
-                    <i data-lucide="music" class="w-8 h-8 text-green-500 group-hover:scale-110 transition-transform"></i>
-                    <span class="text-sm font-medium text-slate-300">Spotify</span>
-                </a>
+                    <a href="https://open.spotify.com/user/31jpbocyu5ppi2z6o2xym2k5ai6y?si=1579fd4c63a24656" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
+                        <i class="fab fa-spotify text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs text-cat-subtext0">Spotify</span>
+                    </a>
+
+                    <a href="https://www.last.fm/user/itsyuriko" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
+                        <i class="fab fa-lastfm text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-xs text-cat-subtext0">Last.fm</span>
+                    </a>
+
+                     <a href="https://bento.me/yurikoo" target="_blank" class="social-link col-span-2 sm:col-span-2 group flex flex-row gap-3 items-center justify-center p-4 rounded-xl bg-gradient-to-r from-cat-surface0/40 to-cat-blue/20 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
+                        <i class="fas fa-square-up-right text-xl group-hover:scale-110 transition-transform"></i>
+                        <span class="text-sm font-medium text-cat-text">Bento.me</span>
+                    </a>
+
+                </div>
+            </div>
+
+            <div class="mt-8 text-center fade-in-up delay-400">
+                <p class="text-xs text-cat-overlay0">© 2025 Yuriko</p>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="py-10 border-t border-white/5 bg-slate-950">
-        <div class="max-w-6xl mx-auto px-6 text-center text-slate-600 text-sm">
-            <p>© 2024 Yuriko. Just vibing on the internet.</p>
-        </div>
-    </footer>
-
-    <!-- Scripts -->
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+        // --- Custom Cursor & Trail Logic ---
 
-        // Clock Functionality (Asia/Kolkata)
-        function updateClock() {
-            const options = { 
-                timeZone: 'Asia/Kolkata', 
-                hour: '2-digit', 
-                minute: '2-digit', 
-                second: '2-digit',
-                hour12: true
-            };
-            const formatter = new Intl.DateTimeFormat('en-US', options);
-            document.getElementById('clock').textContent = formatter.format(new Date());
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+        const canvas = document.getElementById('trail-canvas');
+        const ctx = canvas.getContext('2d');
+
+        let mouseX = -100;
+        let mouseY = -100;
+        let cursorX = -100;
+        let cursorY = -100;
+
+        // Resize canvas to fit screen
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
         }
-        setInterval(updateClock, 1000);
-        updateClock();
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-        // Typewriter Effect
-        const textElement = document.getElementById('typewriter');
-        const phrases = ["a Student", "into Animanga", "a Gamer", "into Tech"];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typeSpeed = 100;
-
-        function type() {
-            const currentPhrase = phrases[phraseIndex];
-            
-            if (isDeleting) {
-                textElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-                typeSpeed = 50; 
-            } else {
-                textElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-                typeSpeed = 100; 
-            }
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                isDeleting = true;
-                typeSpeed = 2000; 
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 500; 
-            }
-
-            setTimeout(type, typeSpeed);
-        }
-
-        document.addEventListener('DOMContentLoaded', type);
-
-        // Intersection Observer for Fade-up Animations
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target); 
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-up').forEach(el => {
-            observer.observe(el);
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
         });
+
+        // Hover effects for links/buttons
+        const interactables = document.querySelectorAll('a, button, .group');
+        interactables.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // Trail Particle Class
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 3 + 1; // Random size
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.life = 1; // Opacity/Life
+                // Catppuccin Colors for Trail: Mauve, Pink, Blue
+                const colors = ['#cba6f7', '#f5c2e7', '#89b4fa'];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life -= 0.02; // Fade out speed
+                if (this.size > 0.1) this.size -= 0.05;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.life;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        const particles = [];
+
+        // Animation Loop
+        function animate() {
+            // Smooth cursor movement (Lag effect)
+            let distX = mouseX - cursorX;
+            let distY = mouseY - cursorY;
+            
+            cursorX += distX * 0.15;
+            cursorY += distY * 0.15;
+
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+
+            // Create trail particles
+            if (Math.abs(distX) > 0.1 || Math.abs(distY) > 0.1) {
+                particles.push(new Particle(cursorX, cursorY));
+            }
+
+            // Canvas cleanup and drawing
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+
+                if (particles[i].life <= 0) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
     </script>
 </body>
 </html>
