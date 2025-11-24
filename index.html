@@ -58,9 +58,12 @@
 
         /* Animated Background */
         .bg-animate {
-            background: linear-gradient(-45deg, #1e1e2e, #181825, #11111b, #313244); /* Base, Mantle, Crust, Surface0 */
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            /* background: linear-gradient(-45deg, #1e1e2e, #181825, #11111b, #313244); */ /* Base, Mantle, Crust, Surface0 */
+            background-image: url('https://i.ibb.co/kgs32ZpK/bunnies-road.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* animation: gradientBG 15s ease infinite; */
             position: fixed;
             top: 0;
             left: 0;
@@ -69,11 +72,11 @@
             z-index: -2;
         }
 
-        @keyframes gradientBG {
+        /* @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
+        } */
 
         /* Glassmorphism Card */
         .glass-card {
