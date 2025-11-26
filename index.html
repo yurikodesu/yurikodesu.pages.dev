@@ -7,7 +7,7 @@
     <link rel="icon" type="image/png" href="https://i.ibb.co/H5P4znc/download-25-modified.png">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons (Updated to 6.5.2 for X logo support) -->
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -51,43 +51,36 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #1e1e2e; /* Catppuccin Base */
-            color: #cdd6f4; /* Catppuccin Text */
+            background-color: #1e1e2e;
+            color: #cdd6f4;
             overflow-x: hidden;
             cursor: none;
         }
 
-        /* Animated Background */
+        /* Background Image */
         .bg-animate {
-            /* background: linear-gradient(-45deg, #1e1e2e, #181825, #11111b, #313244); */ /* Base, Mantle, Crust, Surface0 */
-            background-image: url('https://i.ibb.co/G4kWS2zn/cherry-6.png');
+            background-image: url('https://i.ibb.co/cVWvz93/08.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* animation: gradientBG 15s ease infinite; */
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -2;
-            /* Fix for low-res image: Blur and slight scale to hide edges */
-            filter: blur(5px);
+            /* Blur effect */
+            filter: blur(8px);
+            /* Scale slightly to hide blurred edges */
             transform: scale(1.05);
         }
 
-        /* @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        } */
-
-        /* Glassmorphism Card */
+        /* Glassmorphism Card (Restored) */
         .glass-card {
-            background: rgba(49, 50, 68, 0.4); /* Surface0 with opacity */
+            background: rgba(49, 50, 68, 0.4); /* Catppuccin Surface0 with opacity */
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(186, 194, 222, 0.1); /* Subtext1 border */
+            border: 1px solid rgba(186, 194, 222, 0.1);
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
 
@@ -99,7 +92,7 @@
             background: #1e1e2e;
         }
         ::-webkit-scrollbar-thumb {
-            background: #cba6f7; /* Mauve */
+            background: #cba6f7;
             border-radius: 4px;
         }
 
@@ -110,7 +103,7 @@
             left: 0;
             width: 20px;
             height: 20px;
-            border: 2px solid #cba6f7; /* Mauve */
+            border: 2px solid #cba6f7;
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
@@ -125,7 +118,7 @@
             left: 0;
             width: 6px;
             height: 6px;
-            background-color: #cba6f7; /* Mauve */
+            background-color: #cba6f7;
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
@@ -147,7 +140,7 @@
         body.hovering #cursor {
             width: 40px;
             height: 40px;
-            background-color: rgba(203, 166, 247, 0.1); /* Mauve transparent */
+            background-color: rgba(203, 166, 247, 0.1);
             border-color: transparent;
         }
 
@@ -169,6 +162,7 @@
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; }
         .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
 
         /* Social Icon Hover */
         .social-link {
@@ -176,7 +170,7 @@
         }
         .social-link:hover {
             transform: translateY(-5px);
-            color: #cba6f7; /* Mauve */
+            color: #cba6f7;
         }
     </style>
 </head>
@@ -199,14 +193,14 @@
             <div class="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
                 <!-- Avatar Placeholder with Glow -->
                 <div class="relative group">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-cat-mauve via-cat-pink to-cat-blue rounded-full blur opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                    <div class="absolute -inset-1 bg-gradient-to-r from-cat-sky via-cat-mauve to-cat-pink rounded-full blur opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                     <div class="relative w-32 h-32 rounded-full overflow-hidden border-2 border-cat-surface1 bg-cat-mantle flex items-center justify-center">
                         <img src="https://i.ibb.co/H5P4znc/download-25-modified.png" alt="Yuriko" class="w-full h-full object-cover">
                     </div>
                 </div>
 
                 <div class="text-center md:text-left flex-1">
-                    <h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cat-text to-cat-lavender mb-2">Yuriko</h1>
+                    <h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cat-sky to-cat-pink mb-2">Yuriko</h1>
                     <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-4 text-sm font-medium text-cat-subtext0">
                         <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1">11th Grade (PCM)</span>
                         <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-cake-candles mr-2 text-cat-pink"></i>Jan 31</span>
@@ -222,10 +216,10 @@
 
             <!-- Interests Grid -->
             <div class="mb-8 fade-in-up delay-200">
-                <h3 class="text-sm uppercase tracking-wider text-cat-overlay0 font-semibold mb-4">Interests</h3>
+                <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Interests</h3>
                 <div class="flex flex-wrap gap-3">
                     <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-music mr-2 text-cat-blue"></i>Music</span>
-                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-book-open mr-2 text-cat-peach"></i>Animanga</span>
+                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-film mr-2 text-cat-peach"></i>Animanga</span>
                     <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-laptop-code mr-2 text-cat-teal"></i>Tech</span>
                     <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-gamepad mr-2 text-cat-green"></i>Gaming</span>
                     <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-feather mr-2 text-cat-yellow"></i>Badminton</span>
@@ -233,12 +227,11 @@
             </div>
 
             <!-- Social Links -->
-            <div class="fade-in-up delay-300">
-                <h3 class="text-sm uppercase tracking-wider text-cat-overlay0 font-semibold mb-4">Connect</h3>
+            <div class="mb-8 fade-in-up delay-300">
+                <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Connect</h3>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                     
                     <a href="https://x.com/yuriko_o1" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <!-- Use fa-brands fa-x-twitter which is standard in v6 -->
                         <i class="fa-brands fa-x-twitter text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
                         <span class="text-xs text-cat-subtext0">Twitter/X</span>
                     </a>
@@ -279,7 +272,15 @@
                 </div>
             </div>
 
-            <div class="mt-8 text-center fade-in-up delay-400">
+            <!-- Playlist Embed -->
+            <div class="fade-in-up delay-400">
+                <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Playlist</h3>
+                <div class="rounded-xl overflow-hidden bg-cat-surface0/40 border border-cat-surface1/50 p-1">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2yMliAqvt3JHQ89sl6vGc0?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center fade-in-up delay-500">
                 <p class="text-xs text-cat-overlay0">© 2025 Yuriko</p>
             </div>
         </div>
