@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark"> <!-- Default to dark, JS will adjust -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,34 +13,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <script>
+        // Check system preference or localStorage immediately to prevent flash
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         cat: {
-                            base: '#1e1e2e',
-                            mantle: '#181825',
-                            crust: '#11111b',
-                            text: '#cdd6f4',
-                            subtext1: '#bac2de',
-                            subtext0: '#a6adc8',
-                            surface2: '#585b70',
-                            surface1: '#45475a',
-                            surface0: '#313244',
-                            overlay0: '#6c7086',
-                            blue: '#89b4fa',
-                            lavender: '#b4befe',
-                            sapphire: '#74c7ec',
-                            sky: '#89dceb',
-                            red: '#f38ba8',
-                            maroon: '#eba0ac',
-                            peach: '#fab387',
-                            yellow: '#f9e2af',
-                            green: '#a6e3a1',
-                            teal: '#94e2d5',
-                            pink: '#f5c2e7',
-                            mauve: '#cba6f7',
-                            flamingo: '#f2cdcd',
+                            base: 'var(--cat-base)',
+                            mantle: 'var(--cat-mantle)',
+                            crust: 'var(--cat-crust)',
+                            text: 'var(--cat-text)',
+                            subtext1: 'var(--cat-subtext1)',
+                            subtext0: 'var(--cat-subtext0)',
+                            surface2: 'var(--cat-surface2)',
+                            surface1: 'var(--cat-surface1)',
+                            surface0: 'var(--cat-surface0)',
+                            overlay0: 'var(--cat-overlay0)',
+                            blue: 'var(--cat-blue)',
+                            lavender: 'var(--cat-lavender)',
+                            sapphire: 'var(--cat-sapphire)',
+                            sky: 'var(--cat-sky)',
+                            red: 'var(--cat-red)',
+                            maroon: 'var(--cat-maroon)',
+                            peach: 'var(--cat-peach)',
+                            yellow: 'var(--cat-yellow)',
+                            green: 'var(--cat-green)',
+                            teal: 'var(--cat-teal)',
+                            pink: 'var(--cat-pink)',
+                            mauve: 'var(--cat-mauve)',
+                            flamingo: 'var(--cat-flamingo)',
                         }
                     }
                 }
@@ -49,12 +57,78 @@
     </script>
 
     <style>
+        /* CSS Variables for Catppuccin Themes */
+        :root {
+            /* Latte (Light Mode) Palette */
+            --cat-base: #eff1f5;
+            --cat-mantle: #e6e9ef;
+            --cat-crust: #dce0e8;
+            --cat-text: #4c4f69;
+            --cat-subtext1: #5c5f77;
+            --cat-subtext0: #6c6f85;
+            --cat-surface2: #acb0be;
+            --cat-surface1: #bcc0cc;
+            --cat-surface0: #ccd0da;
+            --cat-overlay0: #7c7f93; /* Darkened from #9ca0b0 for better contrast */
+            --cat-blue: #1e66f5;
+            --cat-lavender: #7287fd;
+            --cat-sapphire: #209fb5;
+            --cat-sky: #04a5e5;
+            --cat-red: #d20f39;
+            --cat-maroon: #e64553;
+            --cat-peach: #fe640b;
+            --cat-yellow: #df8e1d;
+            --cat-green: #40a02b;
+            --cat-teal: #179299;
+            --cat-pink: #ea76cb;
+            --cat-mauve: #8839ef;
+            --cat-flamingo: #dd7878;
+
+            /* Glass Card - Light (High Opacity for Readability) */
+            --glass-bg: rgba(255, 255, 255, 0.90);
+            --glass-border: rgba(200, 200, 200, 0.5);
+            --glass-shadow: rgba(0, 0, 0, 0.15);
+        }
+
+        .dark {
+            /* Mocha (Dark Mode) Palette */
+            --cat-base: #1e1e2e;
+            --cat-mantle: #181825;
+            --cat-crust: #11111b;
+            --cat-text: #cdd6f4;
+            --cat-subtext1: #bac2de;
+            --cat-subtext0: #a6adc8;
+            --cat-surface2: #585b70;
+            --cat-surface1: #45475a;
+            --cat-surface0: #313244;
+            --cat-overlay0: #6c7086;
+            --cat-blue: #89b4fa;
+            --cat-lavender: #b4befe;
+            --cat-sapphire: #74c7ec;
+            --cat-sky: #89dceb;
+            --cat-red: #f38ba8;
+            --cat-maroon: #eba0ac;
+            --cat-peach: #fab387;
+            --cat-yellow: #f9e2af;
+            --cat-green: #a6e3a1;
+            --cat-teal: #94e2d5;
+            --cat-pink: #f5c2e7;
+            --cat-mauve: #cba6f7;
+            --cat-flamingo: #f2cdcd;
+
+            /* Glass Card - Dark */
+            --glass-bg: rgba(49, 50, 68, 0.5);
+            --glass-border: rgba(186, 194, 222, 0.1);
+            --glass-shadow: rgba(0, 0, 0, 0.3);
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #1e1e2e;
-            color: #cdd6f4;
+            background-color: var(--cat-base);
+            color: var(--cat-text);
             overflow-x: hidden;
             cursor: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* Background Image */
@@ -69,19 +143,18 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            /* Blur effect */
             filter: blur(8px);
-            /* Scale slightly to hide blurred edges */
             transform: scale(1.05);
         }
 
-        /* Glassmorphism Card (Restored) */
+        /* Glassmorphism Card (Using Variables) */
         .glass-card {
-            background: rgba(49, 50, 68, 0.4); /* Catppuccin Surface0 with opacity */
+            background: var(--glass-bg);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(186, 194, 222, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 var(--glass-shadow);
+            transition: background 0.3s ease, border-color 0.3s ease;
         }
 
         /* Custom Scrollbar */
@@ -89,10 +162,10 @@
             width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #1e1e2e;
+            background: var(--cat-base);
         }
         ::-webkit-scrollbar-thumb {
-            background: #cba6f7;
+            background: var(--cat-mauve);
             border-radius: 4px;
         }
 
@@ -103,12 +176,12 @@
             left: 0;
             width: 20px;
             height: 20px;
-            border: 2px solid #cba6f7;
+            border: 2px solid var(--cat-mauve);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
-            transition: transform 0.1s ease, width 0.3s, height 0.3s;
+            transition: transform 0.1s ease, width 0.3s, height 0.3s, border-color 0.3s;
             mix-blend-mode: difference;
         }
 
@@ -118,11 +191,12 @@
             left: 0;
             width: 6px;
             height: 6px;
-            background-color: #cba6f7;
+            background-color: var(--cat-mauve);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
             transform: translate(-50%, -50%);
+            transition: background-color 0.3s;
         }
 
         /* Trail Canvas */
@@ -140,7 +214,8 @@
         body.hovering #cursor {
             width: 40px;
             height: 40px;
-            background-color: rgba(203, 166, 247, 0.1);
+            background-color: var(--cat-mauve); /* Will need opacity handling in JS or css var */
+            opacity: 0.3;
             border-color: transparent;
         }
 
@@ -170,7 +245,34 @@
         }
         .social-link:hover {
             transform: translateY(-5px);
-            color: #cba6f7;
+            color: var(--cat-mauve);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 50;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--cat-text);
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 12px var(--glass-shadow);
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            color: var(--cat-yellow);
+            border-color: var(--cat-yellow);
         }
     </style>
 </head>
@@ -183,6 +285,13 @@
     <!-- Custom Cursor Elements -->
     <div id="cursor"></div>
     <div id="cursor-dot"></div>
+
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-toggle group" aria-label="Toggle Dark Mode">
+        <!-- Icons are swapped based on JS logic below, or we use CSS to hide/show -->
+        <i class="fas fa-moon text-xl hidden dark:block"></i>
+        <i class="fas fa-sun text-xl block dark:hidden"></i>
+    </button>
 
     <!-- Main Content -->
     <main class="min-h-screen flex items-center justify-center p-4 relative z-10">
@@ -287,6 +396,22 @@
     </main>
 
     <script>
+        // --- Theme Toggle Logic ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            // Update particles instantly
+            particles.forEach(p => p.color = getRandomColor());
+        });
+
         // --- Custom Cursor & Trail Logic ---
 
         const cursor = document.getElementById('cursor');
@@ -320,6 +445,16 @@
             el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
         });
 
+        function getRandomColor() {
+            // Check if currently dark mode
+            const isDark = htmlElement.classList.contains('dark');
+            // Mocha (Dark) vs Latte (Light) vivid colors
+            const colors = isDark 
+                ? ['#cba6f7', '#f5c2e7', '#89b4fa'] // Mauve, Pink, Blue
+                : ['#8839ef', '#ea76cb', '#1e66f5']; // Darker variants for light mode
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
         // Trail Particle Class
         class Particle {
             constructor(x, y) {
@@ -329,9 +464,7 @@
                 this.speedX = Math.random() * 1 - 0.5;
                 this.speedY = Math.random() * 1 - 0.5;
                 this.life = 1; // Opacity/Life
-                // Catppuccin Colors for Trail: Mauve, Pink, Blue
-                const colors = ['#cba6f7', '#f5c2e7', '#89b4fa'];
-                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.color = getRandomColor();
             }
 
             update() {
