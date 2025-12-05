@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yuriko | Bio</title>
-    <link rel="icon" type="image/png" href="https://i.ibb.co/H5P4znc/download-25-modified.png">
+    <link rel="icon" type="image/png" href="https://files.catbox.moe/4uekjr.png">
+
+    <!-- Performance: Preconnect to external domains -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://i.ibb.co">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Outfit (Closest match to Google Sans) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
         // Check system preference or localStorage immediately to prevent flash
@@ -123,7 +131,7 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Outfit', sans-serif;
             background-color: var(--cat-base);
             color: var(--cat-text);
             overflow-x: hidden;
@@ -133,7 +141,7 @@
 
         /* Background Image */
         .bg-animate {
-            background-image: url('https://i.ibb.co/cVWvz93/08.jpg');
+            background-image: url('https://files.catbox.moe/fbcgeu.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -144,7 +152,9 @@
             height: 100%;
             z-index: -2;
             filter: blur(8px);
-            transform: scale(1.05);
+            /* Performance: Force GPU acceleration */
+            transform: scale(1.05) translateZ(0);
+            backface-visibility: hidden;
         }
 
         /* Glassmorphism Card (Using Variables) */
@@ -155,6 +165,8 @@
             border: 1px solid var(--glass-border);
             box-shadow: 0 8px 32px 0 var(--glass-shadow);
             transition: background 0.3s ease, border-color 0.3s ease;
+            /* Performance: Optimize rendering */
+            will-change: transform, opacity;
         }
 
         /* Custom Scrollbar */
@@ -183,6 +195,7 @@
             transform: translate(-50%, -50%);
             transition: transform 0.1s ease, width 0.3s, height 0.3s, border-color 0.3s;
             mix-blend-mode: difference;
+            will-change: transform, width, height; 
         }
 
         #cursor-dot {
@@ -197,6 +210,7 @@
             z-index: 9999;
             transform: translate(-50%, -50%);
             transition: background-color 0.3s;
+            will-change: transform; 
         }
 
         /* Trail Canvas */
@@ -214,9 +228,19 @@
         body.hovering #cursor {
             width: 40px;
             height: 40px;
-            background-color: var(--cat-mauve); /* Will need opacity handling in JS or css var */
+            background-color: var(--cat-mauve); 
             opacity: 0.3;
             border-color: transparent;
+        }
+
+        /* MOBILE OPTIMIZATION: Hide cursor and trail on touch devices to fix lag */
+        @media (hover: none) and (pointer: coarse) {
+            #cursor, #cursor-dot, #trail-canvas {
+                display: none !important;
+            }
+            body {
+                cursor: auto; /* Restore native scrolling behavior */
+            }
         }
 
         /* Fade In Animation */
@@ -306,7 +330,7 @@
                 <div class="relative group">
                     <div class="absolute -inset-1 bg-gradient-to-r from-cat-sky via-cat-mauve to-cat-pink rounded-full blur opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                     <div class="relative w-32 h-32 rounded-full overflow-hidden border-2 border-cat-surface1 bg-cat-mantle flex items-center justify-center">
-                        <img src="https://i.ibb.co/H5P4znc/download-25-modified.png" alt="Yuriko" class="w-full h-full object-cover">
+                        <img src="https://files.catbox.moe/4uekjr.png" alt="Yuriko" class="w-full h-full object-cover">
                     </div>
                 </div>
 
@@ -357,7 +381,7 @@
                         <span class="text-xs text-cat-subtext0">GitHub</span>
                     </a>
 
-                    <a href="https://reddit.com/u/thefrind54" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
+                    <a href="https://www.reddit.com/user/icedchocolatecake/" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
                         <i class="fab fa-reddit-alien text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
                         <span class="text-xs text-cat-subtext0">Reddit</span>
                     </a>
@@ -388,7 +412,7 @@
                 <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Discord Status</h3>
                 <div class="flex justify-center">
                     <a href="https://discord.com/users/947775206141870111" target="_blank">
-                        <img src="https://discord.c99.nl/widget/theme-3/947775206141870111.png" alt="Discord Status" class="rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300">
+                        <img src="https://discord.c99.nl/widget/theme-3/947775206141870111.png" alt="Discord Status" loading="lazy" class="rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300">
                     </a>
                 </div>
             </div>
@@ -398,7 +422,7 @@
                 <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Recently Played</h3>
                 <div class="flex justify-center">
                     <a href="https://www.last.fm/user/itsyuriko" target="_blank" class="w-full max-w-md">
-                        <img src="https://lastfm-recently-played.vercel.app/api?user=itsyuriko" alt="Last.fm Recently Played" class="rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300 w-full">
+                        <img src="https://lastfm-recently-played.vercel.app/api?user=itsyuriko" alt="Last.fm Recently Played" loading="lazy" class="rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300 w-full">
                     </a>
                 </div>
             </div>
@@ -406,7 +430,7 @@
             <!-- Playlist Embed -->
             <div class="fade-in-up delay-600">
                 <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Playlist</h3>
-                <div class="rounded-xl overflow-hidden bg-cat-surface0/40 border border-cat-surface1/50 p-1">
+                <div class="rounded-xl overflow-hidden">
                     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2yMliAqvt3JHQ89sl6vGc0?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
                 </div>
             </div>
@@ -441,21 +465,30 @@
         const canvas = document.getElementById('trail-canvas');
         const ctx = canvas.getContext('2d');
 
+        // Check if device is mobile/touch to stop animation loop
+        const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+
         let mouseX = -100;
         let mouseY = -100;
         let cursorX = -100;
         let cursorY = -100;
 
-        // Resize canvas to fit screen
+        // Debounce resize to save performance
+        let resizeTimeout;
         function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            if (isTouchDevice) return; // Skip on mobile
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }, 100);
         }
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
         // Track mouse movement
         document.addEventListener('mousemove', (e) => {
+            if (isTouchDevice) return; // Skip on mobile
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
@@ -463,8 +496,12 @@
         // Hover effects for links/buttons
         const interactables = document.querySelectorAll('a, button, .group');
         interactables.forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+            el.addEventListener('mouseenter', () => {
+                if (!isTouchDevice) document.body.classList.add('hovering');
+            });
+            el.addEventListener('mouseleave', () => {
+                if (!isTouchDevice) document.body.classList.remove('hovering');
+            });
         });
 
         function getRandomColor() {
@@ -510,6 +547,9 @@
 
         // Animation Loop
         function animate() {
+            // PERFORMANCE: Stop loop entirely on mobile to save battery/CPU
+            if (isTouchDevice) return;
+
             // Smooth cursor movement (Lag effect)
             let distX = mouseX - cursorX;
             let distY = mouseY - cursorY;
@@ -522,9 +562,17 @@
             cursorDot.style.left = mouseX + 'px';
             cursorDot.style.top = mouseY + 'px';
 
-            // Create trail particles
-            if (Math.abs(distX) > 0.1 || Math.abs(distY) > 0.1) {
-                particles.push(new Particle(cursorX, cursorY));
+            // Create trail particles - Optimized frequency (distance check)
+            if (Math.abs(distX) > 5 || Math.abs(distY) > 5) {
+                // Only create particle if moved significantly (prevents clustering)
+                if (Math.random() > 0.5) { // Simple 50% throttle
+                    particles.push(new Particle(cursorX, cursorY));
+                }
+            }
+
+            // OPTIMIZATION: Limit max particles to prevent lag on lower-end desktops
+            if (particles.length > 40) {
+                particles.shift();
             }
 
             // Canvas cleanup and drawing
