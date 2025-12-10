@@ -32,6 +32,10 @@
             darkMode: 'class',
             theme: {
                 extend: {
+                    borderRadius: {
+                        '4xl': '2rem',
+                        '5xl': '2.5rem',
+                    },
                     colors: {
                         cat: {
                             base: 'var(--cat-base)',
@@ -77,7 +81,7 @@
             --cat-surface2: #acb0be;
             --cat-surface1: #bcc0cc;
             --cat-surface0: #ccd0da;
-            --cat-overlay0: #7c7f93; /* Darkened from #9ca0b0 for better contrast */
+            --cat-overlay0: #7c7f93; 
             --cat-blue: #1e66f5;
             --cat-lavender: #7287fd;
             --cat-sapphire: #209fb5;
@@ -92,9 +96,9 @@
             --cat-mauve: #8839ef;
             --cat-flamingo: #dd7878;
 
-            /* Glass Card - Light (High Opacity for Readability) */
+            /* Glass Card - Light (Improved Readability) */
             --glass-bg: rgba(255, 255, 255, 0.90);
-            --glass-border: rgba(200, 200, 200, 0.5);
+            --glass-border: rgba(200, 200, 200, 0.6);
             --glass-shadow: rgba(0, 0, 0, 0.15);
         }
 
@@ -124,9 +128,10 @@
             --cat-mauve: #cba6f7;
             --cat-flamingo: #f2cdcd;
 
-            /* Glass Card - Dark */
-            --glass-bg: rgba(49, 50, 68, 0.5);
-            --glass-border: rgba(186, 194, 222, 0.1);
+            /* Glass Card - Dark (Mica Style) */
+            /* Darker tint, letting background colors bleed through */
+            --glass-bg: rgba(30, 30, 46, 0.70);
+            --glass-border: rgba(255, 255, 255, 0.08);
             --glass-shadow: rgba(0, 0, 0, 0.3);
         }
 
@@ -141,7 +146,7 @@
 
         /* Background Image */
         .bg-animate {
-            background-image: url('https://iili.io/fucmd6G.jpg');
+            background-image: url('https://iili.io/fRwTOSj.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -151,17 +156,20 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            filter: blur(8px);
+            /* Blur effect */
+            filter: blur(3px);
             /* Performance: Force GPU acceleration */
-            transform: scale(1.05) translateZ(0);
+            transform: scale(1.02) translateZ(0);
             backface-visibility: hidden;
+            will-change: transform; 
         }
 
-        /* Glassmorphism Card (Using Variables) */
+        /* Glassmorphism Card (Mica Effect) */
         .glass-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            /* Mica Effect: Higher blur radius + Saturation boost */
+            backdrop-filter: blur(25px) saturate(150%);
+            -webkit-backdrop-filter: blur(25px) saturate(150%);
             border: 1px solid var(--glass-border);
             box-shadow: 0 8px 32px 0 var(--glass-shadow);
             transition: background 0.3s ease, border-color 0.3s ease;
@@ -314,7 +322,6 @@
 
     <!-- Theme Toggle Button -->
     <button id="theme-toggle" class="theme-toggle group" aria-label="Toggle Dark Mode">
-        <!-- Icons are swapped based on JS logic below, or we use CSS to hide/show -->
         <i class="fas fa-moon text-xl hidden dark:block"></i>
         <i class="fas fa-sun text-xl block dark:hidden"></i>
     </button>
@@ -335,12 +342,13 @@
                 </div>
 
                 <div class="text-center md:text-left flex-1">
-                    <h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cat-sky to-cat-pink mb-2">Yuriko</h1>
+                    <h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cat-lavender to-cat-mauve mb-2">Yuriko</h1>
                     <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-4 text-sm font-medium text-cat-subtext0">
                         <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1">11th Grade (PCM)</span>
                         <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-cake-candles mr-2 text-cat-pink"></i>Jan 31</span>
                         <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-mars mr-2 text-cat-blue"></i>he/him</span>
                         <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-brain mr-2 text-cat-mauve"></i>INFP-T</span>
+                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-location-dot mr-2 text-cat-green"></i>India</span>
                     </div>
                     <p class="text-cat-subtext1 leading-relaxed max-w-md mx-auto md:mx-0">
                         Hey! I'm into music, animanga, tech, gaming, and a bit of badminton! 
@@ -448,6 +456,7 @@
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
+        // Force update particles on theme change
         themeToggleBtn.addEventListener('click', () => {
             if (htmlElement.classList.contains('dark')) {
                 htmlElement.classList.remove('dark');
@@ -456,7 +465,7 @@
                 htmlElement.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
             }
-            // Update particles instantly
+            // Update active particles to new colors immediately
             particles.forEach(p => p.color = getRandomColor());
         });
 
@@ -490,7 +499,7 @@
 
         // Track mouse movement
         document.addEventListener('mousemove', (e) => {
-            if (isTouchDevice) return; // Skip on mobile
+            if (isTouchDevice) return; 
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
@@ -507,35 +516,57 @@
         });
 
         function getRandomColor() {
-            // Check if currently dark mode
             const isDark = htmlElement.classList.contains('dark');
-            // Mocha (Dark) vs Latte (Light) vivid colors
             const colors = isDark 
                 ? ['#cba6f7', '#f5c2e7', '#89b4fa'] // Mauve, Pink, Blue
-                : ['#8839ef', '#ea76cb', '#1e66f5']; // Darker variants for light mode
+                : ['#8839ef', '#ea76cb', '#1e66f5']; // Darker variants
             return colors[Math.floor(Math.random() * colors.length)];
         }
 
-        // Trail Particle Class
+        // --- RAM & CPU OPTIMIZATION: Object Pooling ---
+        
+        // Pre-allocate particles to avoid Garbage Collection lag
+        const MAX_PARTICLES = 20; // Reduced from 40
+        const particles = new Array(MAX_PARTICLES).fill(null);
+        let particleIndex = 0; // Circular buffer index
+
         class Particle {
-            constructor(x, y) {
+            constructor() {
+                this.active = false;
+                this.x = 0;
+                this.y = 0;
+                this.size = 0;
+                this.speedX = 0;
+                this.speedY = 0;
+                this.life = 0;
+                this.color = '';
+            }
+
+            spawn(x, y) {
                 this.x = x;
                 this.y = y;
-                this.size = Math.random() * 3 + 1; // Random size
+                this.size = Math.random() * 3 + 1;
                 this.speedX = Math.random() * 1 - 0.5;
                 this.speedY = Math.random() * 1 - 0.5;
-                this.life = 1; // Opacity/Life
+                this.life = 1; 
                 this.color = getRandomColor();
+                this.active = true;
             }
 
             update() {
+                if (!this.active) return;
+                
                 this.x += this.speedX;
                 this.y += this.speedY;
-                this.life -= 0.02; // Fade out speed
+                this.life -= 0.03; // Faster fade out to clear screen quicker
                 if (this.size > 0.1) this.size -= 0.05;
+
+                if (this.life <= 0) this.active = false;
             }
 
             draw() {
+                if (!this.active) return;
+                
                 ctx.fillStyle = this.color;
                 ctx.globalAlpha = this.life;
                 ctx.beginPath();
@@ -545,12 +576,17 @@
             }
         }
 
-        const particles = [];
+        // Initialize Pool
+        for (let i = 0; i < MAX_PARTICLES; i++) {
+            particles[i] = new Particle();
+        }
 
-        // Animation Loop
         function animate() {
-            // PERFORMANCE: Stop loop entirely on mobile to save battery/CPU
-            if (isTouchDevice) return;
+            // OPTIMIZATION: Stop completely on mobile or if hidden
+            if (isTouchDevice || document.hidden) {
+                requestAnimationFrame(animate);
+                return;
+            }
 
             // Smooth cursor movement (Lag effect)
             let distX = mouseX - cursorX;
@@ -564,30 +600,22 @@
             cursorDot.style.left = mouseX + 'px';
             cursorDot.style.top = mouseY + 'px';
 
-            // Create trail particles - Optimized frequency (distance check)
+            // Create trail particles - Throttled by distance
             if (Math.abs(distX) > 5 || Math.abs(distY) > 5) {
-                // Only create particle if moved significantly (prevents clustering)
-                if (Math.random() > 0.5) { // Simple 50% throttle
-                    particles.push(new Particle(cursorX, cursorY));
+                if (Math.random() > 0.5) { 
+                    // Recycle particle from pool
+                    particles[particleIndex].spawn(cursorX, cursorY);
+                    particleIndex = (particleIndex + 1) % MAX_PARTICLES;
                 }
             }
 
-            // OPTIMIZATION: Limit max particles to prevent lag on lower-end desktops
-            if (particles.length > 40) {
-                particles.shift();
-            }
-
-            // Canvas cleanup and drawing
+            // Clear & Draw
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             
-            for (let i = 0; i < particles.length; i++) {
+            // Iterate over fixed pool (no array resizing)
+            for (let i = 0; i < MAX_PARTICLES; i++) {
                 particles[i].update();
                 particles[i].draw();
-
-                if (particles[i].life <= 0) {
-                    particles.splice(i, 1);
-                    i--;
-                }
             }
 
             requestAnimationFrame(animate);
