@@ -129,7 +129,6 @@
             --cat-flamingo: #f2cdcd;
 
             /* Glass Card - Dark (Mica Style) */
-            /* Darker tint, letting background colors bleed through */
             --glass-bg: rgba(30, 30, 46, 0.70);
             --glass-border: rgba(255, 255, 255, 0.08);
             --glass-shadow: rgba(0, 0, 0, 0.3);
@@ -156,9 +155,7 @@
             width: 100%;
             height: 100%;
             z-index: -2;
-            /* Blur effect */
             filter: blur(3px);
-            /* Performance: Force GPU acceleration */
             transform: scale(1.02) translateZ(0);
             backface-visibility: hidden;
             will-change: transform; 
@@ -167,13 +164,11 @@
         /* Glassmorphism Card (Mica Effect) */
         .glass-card {
             background: var(--glass-bg);
-            /* Mica Effect: Higher blur radius + Saturation boost */
             backdrop-filter: blur(25px) saturate(150%);
             -webkit-backdrop-filter: blur(25px) saturate(150%);
             border: 1px solid var(--glass-border);
             box-shadow: 0 8px 32px 0 var(--glass-shadow);
             transition: background 0.3s ease, border-color 0.3s ease;
-            /* Performance: Optimize rendering */
             will-change: transform, opacity;
         }
 
@@ -241,13 +236,13 @@
             border-color: transparent;
         }
 
-        /* MOBILE OPTIMIZATION: Hide cursor and trail on touch devices to fix lag */
+        /* MOBILE OPTIMIZATION */
         @media (hover: none) and (pointer: coarse) {
             #cursor, #cursor-dot, #trail-canvas {
                 display: none !important;
             }
             body {
-                cursor: auto; /* Restore native scrolling behavior */
+                cursor: auto;
             }
         }
 
@@ -333,7 +328,7 @@
             
             <!-- Header / Profile -->
             <div class="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
-                <!-- Avatar Placeholder with Glow -->
+                <!-- Avatar with Glow -->
                 <div class="relative group">
                     <div class="absolute -inset-1 bg-gradient-to-r from-cat-sky via-cat-mauve to-cat-pink rounded-full blur opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                     <div class="relative w-32 h-32 rounded-full overflow-hidden border-2 border-cat-surface1 bg-cat-mantle flex items-center justify-center">
@@ -344,10 +339,10 @@
                 <div class="text-center md:text-left flex-1">
                     <h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cat-lavender to-cat-mauve mb-2">Yuriko</h1>
                     <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-4 text-sm font-medium text-cat-subtext0">
-                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1">11th Grade (PCM)</span>
+                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-clock mr-2 text-cat-mauve"></i>17 years</span>
+                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-graduation-cap mr-2 text-cat-teal"></i>12th Grade (PCM)</span>
                         <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-cake-candles mr-2 text-cat-pink"></i>Jan 31</span>
                         <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-mars mr-2 text-cat-blue"></i>he/him</span>
-                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-brain mr-2 text-cat-mauve"></i>INFP-T</span>
                         <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-location-dot mr-2 text-cat-green"></i>India</span>
                     </div>
                     <p class="text-cat-subtext1 leading-relaxed max-w-md mx-auto md:mx-0">
@@ -367,7 +362,13 @@
                     <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-film mr-2 text-cat-peach"></i>Animanga</span>
                     <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-laptop-code mr-2 text-cat-teal"></i>Tech</span>
                     <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-gamepad mr-2 text-cat-green"></i>Gaming</span>
-                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-feather mr-2 text-cat-yellow"></i>Badminton</span>
+                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text flex items-center">
+                        <svg class="w-4 h-4 mr-2 text-cat-yellow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 20a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" fill="currentColor"/>
+                            <path d="M9 15.5 5 4l4 3 3-5 3 5 4-3-4 11.5"/>
+                        </svg>
+                        Badminton
+                    </span>
                 </div>
             </div>
 
@@ -407,11 +408,11 @@
                     </a>
 
                     <a href="https://anilist.co/user/Yuriko/" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <span class="text-xs text-cat-subtext0">AniList</span>
+                        <span class="text-xs text-cat-subtext0 font-bold">AniList</span>
                     </a>
 
                      <a href="https://bento.me/yurikoo" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <span class="text-xs text-cat-subtext0">Bento.me</span>
+                        <span class="text-xs text-cat-subtext0 font-bold">Bento.me</span>
                     </a>
 
                 </div>
@@ -456,7 +457,6 @@
         const themeToggleBtn = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
 
-        // Force update particles on theme change
         themeToggleBtn.addEventListener('click', () => {
             if (htmlElement.classList.contains('dark')) {
                 htmlElement.classList.remove('dark');
@@ -465,18 +465,15 @@
                 htmlElement.classList.add('dark');
                 localStorage.setItem('theme', 'dark');
             }
-            // Update active particles to new colors immediately
             particles.forEach(p => p.color = getRandomColor());
         });
 
         // --- Custom Cursor & Trail Logic ---
-
         const cursor = document.getElementById('cursor');
         const cursorDot = document.getElementById('cursor-dot');
         const canvas = document.getElementById('trail-canvas');
         const ctx = canvas.getContext('2d');
 
-        // Check if device is mobile/touch to stop animation loop
         const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
 
         let mouseX = -100;
@@ -484,10 +481,9 @@
         let cursorX = -100;
         let cursorY = -100;
 
-        // Debounce resize to save performance
         let resizeTimeout;
         function resizeCanvas() {
-            if (isTouchDevice) return; // Skip on mobile
+            if (isTouchDevice) return; 
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
                 canvas.width = window.innerWidth;
@@ -497,14 +493,12 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        // Track mouse movement
         document.addEventListener('mousemove', (e) => {
             if (isTouchDevice) return; 
             mouseX = e.clientX;
             mouseY = e.clientY;
         });
 
-        // Hover effects for links/buttons
         const interactables = document.querySelectorAll('a, button, .group');
         interactables.forEach(el => {
             el.addEventListener('mouseenter', () => {
@@ -518,17 +512,15 @@
         function getRandomColor() {
             const isDark = htmlElement.classList.contains('dark');
             const colors = isDark 
-                ? ['#cba6f7', '#f5c2e7', '#89b4fa'] // Mauve, Pink, Blue
-                : ['#8839ef', '#ea76cb', '#1e66f5']; // Darker variants
+                ? ['#cba6f7', '#f5c2e7', '#89b4fa'] 
+                : ['#8839ef', '#ea76cb', '#1e66f5'];
             return colors[Math.floor(Math.random() * colors.length)];
         }
 
-        // --- RAM & CPU OPTIMIZATION: Object Pooling ---
-        
-        // Pre-allocate particles to avoid Garbage Collection lag
-        const MAX_PARTICLES = 20; // Reduced from 40
+        // --- Particles Pool ---
+        const MAX_PARTICLES = 20; 
         const particles = new Array(MAX_PARTICLES).fill(null);
-        let particleIndex = 0; // Circular buffer index
+        let particleIndex = 0;
 
         class Particle {
             constructor() {
@@ -555,18 +547,15 @@
 
             update() {
                 if (!this.active) return;
-                
                 this.x += this.speedX;
                 this.y += this.speedY;
-                this.life -= 0.03; // Faster fade out to clear screen quicker
+                this.life -= 0.03;
                 if (this.size > 0.1) this.size -= 0.05;
-
                 if (this.life <= 0) this.active = false;
             }
 
             draw() {
                 if (!this.active) return;
-                
                 ctx.fillStyle = this.color;
                 ctx.globalAlpha = this.life;
                 ctx.beginPath();
@@ -576,19 +565,16 @@
             }
         }
 
-        // Initialize Pool
         for (let i = 0; i < MAX_PARTICLES; i++) {
             particles[i] = new Particle();
         }
 
         function animate() {
-            // OPTIMIZATION: Stop completely on mobile or if hidden
             if (isTouchDevice || document.hidden) {
                 requestAnimationFrame(animate);
                 return;
             }
 
-            // Smooth cursor movement (Lag effect)
             let distX = mouseX - cursorX;
             let distY = mouseY - cursorY;
             
@@ -600,19 +586,14 @@
             cursorDot.style.left = mouseX + 'px';
             cursorDot.style.top = mouseY + 'px';
 
-            // Create trail particles - Throttled by distance
             if (Math.abs(distX) > 5 || Math.abs(distY) > 5) {
                 if (Math.random() > 0.5) { 
-                    // Recycle particle from pool
                     particles[particleIndex].spawn(cursorX, cursorY);
                     particleIndex = (particleIndex + 1) % MAX_PARTICLES;
                 }
             }
 
-            // Clear & Draw
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Iterate over fixed pool (no array resizing)
             for (let i = 0; i < MAX_PARTICLES; i++) {
                 particles[i].update();
                 particles[i].draw();
