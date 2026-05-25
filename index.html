@@ -1,610 +1,539 @@
 <!DOCTYPE html>
-<html lang="en" class="dark"> <!-- Default to dark, JS will adjust -->
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yuriko | Bio</title>
-    <link rel="icon" type="image/png" href="https://iili.io/fucrBTv.png">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yuriko | Bio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    <!-- Performance: Preconnect to external domains -->
-    <link rel="preconnect" href="https://cdn.tailwindcss.com">
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://iili.io">
+  :root {
+    --bg: #0d0b10;
+    --bg2: #13101a;
+    --bg3: #1a1625;
+    --card: #18152082;
+    --border: rgba(255,200,220,0.10);
+    --border-hover: rgba(255,180,200,0.22);
+    --pink: #f0a3bb;
+    --pink-soft: #f7cedd;
+    --pink-glow: rgba(240,163,187,0.15);
+    --lavender: #c8b4e8;
+    --text: #ede8f2;
+    --text-muted: #9d93b0;
+    --text-dim: #5e576e;
+    --ff-head: 'Shippori Mincho', serif;
+    --ff-body: 'DM Sans', sans-serif;
+    --radius: 16px;
+    --radius-sm: 10px;
+  }
 
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Google Fonts: Outfit (Closest match to Google Sans) -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        // Check system preference or localStorage immediately to prevent flash
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+  html { scroll-behavior: smooth; }
 
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    borderRadius: {
-                        '4xl': '2rem',
-                        '5xl': '2.5rem',
-                    },
-                    colors: {
-                        cat: {
-                            base: 'var(--cat-base)',
-                            mantle: 'var(--cat-mantle)',
-                            crust: 'var(--cat-crust)',
-                            text: 'var(--cat-text)',
-                            subtext1: 'var(--cat-subtext1)',
-                            subtext0: 'var(--cat-subtext0)',
-                            surface2: 'var(--cat-surface2)',
-                            surface1: 'var(--cat-surface1)',
-                            surface0: 'var(--cat-surface0)',
-                            overlay0: 'var(--cat-overlay0)',
-                            blue: 'var(--cat-blue)',
-                            lavender: 'var(--cat-lavender)',
-                            sapphire: 'var(--cat-sapphire)',
-                            sky: 'var(--cat-sky)',
-                            red: 'var(--cat-red)',
-                            maroon: 'var(--cat-maroon)',
-                            peach: 'var(--cat-peach)',
-                            yellow: 'var(--cat-yellow)',
-                            green: 'var(--cat-green)',
-                            teal: 'var(--cat-teal)',
-                            pink: 'var(--cat-pink)',
-                            mauve: 'var(--cat-mauve)',
-                            flamingo: 'var(--cat-flamingo)',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+  body {
+    background: var(--bg) url('https://file.garden/aYCdlBqIC3TWlgqn/surreal-cherry-5120x2880-26233.jpg') center center / cover fixed no-repeat;
+    color: var(--text);
+    font-family: var(--ff-body);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
 
-    <style>
-        /* CSS Variables for Catppuccin Themes */
-        :root {
-            /* Latte (Light Mode) Palette */
-            --cat-base: #eff1f5;
-            --cat-mantle: #e6e9ef;
-            --cat-crust: #dce0e8;
-            --cat-text: #4c4f69;
-            --cat-subtext1: #5c5f77;
-            --cat-subtext0: #6c6f85;
-            --cat-surface2: #acb0be;
-            --cat-surface1: #bcc0cc;
-            --cat-surface0: #ccd0da;
-            --cat-overlay0: #7c7f93; 
-            --cat-blue: #1e66f5;
-            --cat-lavender: #7287fd;
-            --cat-sapphire: #209fb5;
-            --cat-sky: #04a5e5;
-            --cat-red: #d20f39;
-            --cat-maroon: #e64553;
-            --cat-peach: #fe640b;
-            --cat-yellow: #df8e1d;
-            --cat-green: #40a02b;
-            --cat-teal: #179299;
-            --cat-pink: #ea76cb;
-            --cat-mauve: #8839ef;
-            --cat-flamingo: #dd7878;
+  /* Background overlay for readability */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 6, 14, 0.75);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    pointer-events: none;
+    z-index: 0;
+  }
 
-            /* Glass Card - Light (Improved Readability) */
-            --glass-bg: rgba(255, 255, 255, 0.90);
-            --glass-border: rgba(200, 200, 200, 0.6);
-            --glass-shadow: rgba(0, 0, 0, 0.15);
-        }
+  /* Floating sakura dots */
+  .sakura {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .petal {
+    position: absolute;
+    width: 5px; height: 5px;
+    background: rgba(240,163,187,0.25);
+    border-radius: 50% 0 50% 0;
+    animation: fall linear infinite;
+    top: -10px;
+  }
+  @keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
 
-        .dark {
-            /* Mocha (Dark Mode) Palette */
-            --cat-base: #1e1e2e;
-            --cat-mantle: #181825;
-            --cat-crust: #11111b;
-            --cat-text: #cdd6f4;
-            --cat-subtext1: #bac2de;
-            --cat-subtext0: #a6adc8;
-            --cat-surface2: #585b70;
-            --cat-surface1: #45475a;
-            --cat-surface0: #313244;
-            --cat-overlay0: #6c7086;
-            --cat-blue: #89b4fa;
-            --cat-lavender: #b4befe;
-            --cat-sapphire: #74c7ec;
-            --cat-sky: #89dceb;
-            --cat-red: #f38ba8;
-            --cat-maroon: #eba0ac;
-            --cat-peach: #fab387;
-            --cat-yellow: #f9e2af;
-            --cat-green: #a6e3a1;
-            --cat-teal: #94e2d5;
-            --cat-pink: #f5c2e7;
-            --cat-mauve: #cba6f7;
-            --cat-flamingo: #f2cdcd;
+  /* Layout */
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
 
-            /* Glass Card - Dark (Mica Style) */
-            --glass-bg: rgba(30, 30, 46, 0.70);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-shadow: rgba(0, 0, 0, 0.3);
-        }
+  /* Hero */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 52px;
+    animation: fadeUp 0.8s ease both;
+  }
 
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--cat-base);
-            color: var(--cat-text);
-            overflow-x: hidden;
-            cursor: none;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+  .avatar-wrap {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .avatar-ring {
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 1.5px solid var(--pink);
+    opacity: 0.5;
+    animation: pulse-ring 3s ease-in-out infinite;
+  }
+  .avatar-ring-2 {
+    position: absolute;
+    inset: -12px;
+    border-radius: 50%;
+    border: 1px solid rgba(240,163,187,0.2);
+    animation: pulse-ring 3s ease-in-out 1s infinite;
+  }
+  @keyframes pulse-ring {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.04); opacity: 0.7; }
+  }
 
-        /* Background Image */
-        .bg-animate {
-            background-image: url('https://iili.io/fRwTOSj.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            filter: blur(3px);
-            transform: scale(1.02) translateZ(0);
-            backface-visibility: hidden;
-            will-change: transform; 
-        }
+  .avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.97) saturate(1.1);
+  }
 
-        /* Glassmorphism Card (Mica Effect) */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px) saturate(150%);
-            -webkit-backdrop-filter: blur(25px) saturate(150%);
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 8px 32px 0 var(--glass-shadow);
-            transition: background 0.3s ease, border-color 0.3s ease;
-            will-change: transform, opacity;
-        }
+  .hero h1 {
+    font-family: var(--ff-head);
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--cat-base);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--cat-mauve);
-            border-radius: 4px;
-        }
+  .meta-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .tag {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--pink-soft);
+    background: rgba(240,163,187,0.10);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 12px;
+    letter-spacing: 0.02em;
+  }
 
-        /* Cursor Styles */
-        #cursor {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--cat-mauve);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s ease, width 0.3s, height 0.3s, border-color 0.3s;
-            mix-blend-mode: difference;
-            will-change: transform, width, height; 
-        }
+  .bio-text {
+    color: var(--text-muted);
+    font-size: 14.5px;
+    max-width: 440px;
+    line-height: 1.75;
+  }
 
-        #cursor-dot {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 6px;
-            background-color: var(--cat-mauve);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: background-color 0.3s;
-            will-change: transform; 
-        }
+  /* Divider */
+  .divider {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--pink), transparent);
+    margin: 0 auto 44px;
+    opacity: 0.5;
+  }
 
-        /* Trail Canvas */
-        #trail-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9998;
-        }
+  /* Sections */
+  section {
+    margin-bottom: 36px;
+    animation: fadeUp 0.7s ease both;
+  }
+  section:nth-child(2) { animation-delay: 0.1s; }
+  section:nth-child(3) { animation-delay: 0.2s; }
+  section:nth-child(4) { animation-delay: 0.3s; }
+  section:nth-child(5) { animation-delay: 0.4s; }
+  section:nth-child(6) { animation-delay: 0.5s; }
 
-        /* Hover State for Cursor */
-        body.hovering #cursor {
-            width: 40px;
-            height: 40px;
-            background-color: var(--cat-mauve); 
-            opacity: 0.3;
-            border-color: transparent;
-        }
+  .section-label {
+    font-family: var(--ff-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
 
-        /* MOBILE OPTIMIZATION */
-        @media (hover: none) and (pointer: coarse) {
-            #cursor, #cursor-dot, #trail-canvas {
-                display: none !important;
-            }
-            body {
-                cursor: auto;
-            }
-        }
+  /* Interests */
+  .interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .interest-pill {
+    font-size: 13.5px;
+    font-weight: 300;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 7px 16px;
+    backdrop-filter: blur(6px);
+    transition: border-color 0.25s, color 0.25s, background 0.25s;
+  }
+  .interest-pill:hover {
+    border-color: var(--border-hover);
+    color: var(--pink-soft);
+    background: rgba(240,163,187,0.08);
+  }
 
-        /* Fade In Animation */
-        .fade-in-up {
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
+  /* Connect links */
+  .links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 8px;
+  }
+  /* 3D tilt setup */
+  .link-card, .interest-pill, .widget-card, .music-embed {
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
 
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+  .link-card {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 400;
+    transition: border-color 0.2s, color 0.2s, background 0.2s, transform 0.1s ease-out, box-shadow 0.2s;
+    backdrop-filter: blur(6px);
+  }
+  .link-card:hover {
+    border-color: var(--border-hover);
+    color: var(--pink-soft);
+    background: rgba(240,163,187,0.07);
+  }
+  .link-icon {
+    width: 18px;
+    height: 18px;
+    opacity: 0.75;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .link-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  .link-icon svg:not([fill="none"]) {
+    fill: currentColor;
+  }
+  .link-icon svg[fill="none"] {
+    stroke: currentColor;
+  }
 
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.2s; }
-        .delay-400 { animation-delay: 0.3s; }
-        .delay-500 { animation-delay: 0.4s; }
-        .delay-600 { animation-delay: 0.5s; }
-        .delay-700 { animation-delay: 0.6s; }
+  /* Widget cards */
+  .widget-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+  }
 
-        /* Social Icon Hover */
-        .social-link {
-            transition: all 0.3s ease;
-        }
-        .social-link:hover {
-            transform: translateY(-5px);
-            color: var(--cat-mauve);
-        }
+  .widget-card img {
+    max-width: 100%;
+    width: auto;
+    border-radius: var(--radius-sm);
+    display: block;
+  }
 
-        /* Theme Toggle Button */
-        .theme-toggle {
-            position: fixed;
-            top: 1.5rem;
-            right: 1.5rem;
-            z-index: 50;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: var(--cat-text);
-            padding: 0.75rem;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 4px 12px var(--glass-shadow);
-            backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-        }
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            color: var(--cat-yellow);
-            border-color: var(--cat-yellow);
-        }
-    </style>
+  .widget-card a img {
+    transition: opacity 0.2s;
+  }
+  .widget-card a:hover img { opacity: 0.88; }
+
+  /* Apple Music embed */
+  .music-embed {
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+  }
+  .music-embed iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 12px;
+    margin-top: 60px;
+    letter-spacing: 0.05em;
+    animation: fadeUp 0.7s ease 0.6s both;
+  }
+  footer span {
+    color: var(--pink);
+    opacity: 0.6;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 2rem; }
+    .links-grid { grid-template-columns: 1fr 1fr; }
+    .page { padding: 44px 18px 60px; }
+  }
+</style>
 </head>
 <body>
 
-    <!-- Background Elements -->
-    <div class="bg-animate"></div>
-    <canvas id="trail-canvas"></canvas>
-    
-    <!-- Custom Cursor Elements -->
-    <div id="cursor"></div>
-    <div id="cursor-dot"></div>
+<div class="sakura" id="sakura"></div>
 
-    <!-- Theme Toggle Button -->
-    <button id="theme-toggle" class="theme-toggle group" aria-label="Toggle Dark Mode">
-        <i class="fas fa-moon text-xl hidden dark:block"></i>
-        <i class="fas fa-sun text-xl block dark:hidden"></i>
-    </button>
+<main class="page">
 
-    <!-- Main Content -->
-    <main class="min-h-screen flex items-center justify-center p-4 relative z-10">
-        
-        <div class="glass-card w-full max-w-2xl rounded-3xl p-8 md:p-12 fade-in-up">
-            
-            <!-- Header / Profile -->
-            <div class="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
-                <!-- Avatar with Glow -->
-                <div class="relative group">
-                    <div class="absolute -inset-1 bg-gradient-to-r from-cat-sky via-cat-mauve to-cat-pink rounded-full blur opacity-50 group-hover:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                    <div class="relative w-32 h-32 rounded-full overflow-hidden border-2 border-cat-surface1 bg-cat-mantle flex items-center justify-center">
-                        <img src="https://iili.io/fucrBTv.png" alt="Yuriko" class="w-full h-full object-cover">
-                    </div>
-                </div>
+  <!-- Hero -->
+  <div class="hero">
+    <div class="avatar-wrap">
+      <div class="avatar-ring"></div>
+      <div class="avatar-ring-2"></div>
+      <img class="avatar" src="https://iili.io/fucrBTv.png" alt="Yuriko" />
+    </div>
+    <h1>Yuriko</h1>
+    <div class="meta-tags">
+      <span class="tag">17 years</span>
+      <span class="tag">12th Grade · PCM</span>
+      <span class="tag">Jan 31</span>
+      <span class="tag">he/him</span>
+      <span class="tag">India</span>
+    </div>
+    <p class="bio-text">
+      Hello! I'm into music, anime, reading (manga, manhwa, light novels, fiction and more), and a bit of badminton and gaming!
+      I watch and read all genres — my personal favorites are romance, action, and slice of life.
+    </p>
+  </div>
 
-                <div class="text-center md:text-left flex-1">
-                    <h1 class="text-4xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cat-lavender to-cat-mauve mb-2">Yuriko</h1>
-                    <div class="flex flex-wrap gap-2 justify-center md:justify-start mb-4 text-sm font-medium text-cat-subtext0">
-                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-clock mr-2 text-cat-mauve"></i>17 years</span>
-                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-graduation-cap mr-2 text-cat-teal"></i>12th Grade (PCM)</span>
-                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-cake-candles mr-2 text-cat-pink"></i>Jan 31</span>
-                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-mars mr-2 text-cat-blue"></i>he/him</span>
-                        <span class="px-3 py-1 rounded-full bg-cat-surface0/50 border border-cat-surface1"><i class="fas fa-location-dot mr-2 text-cat-green"></i>India</span>
-                    </div>
-                    <p class="text-cat-subtext1 leading-relaxed max-w-md mx-auto md:mx-0">
-                        Hello! I'm into music, anime, reading (manga, manhwa, light novels, fiction etc.), and a bit of badminton and gaming! 
-                        I watch and read all genres, although my personal favorites are romance, action, and slice of life.
-                    </p>
-                </div>
-            </div>
+  <div class="divider"></div>
 
-            <hr class="border-cat-surface1/50 mb-8 fade-in-up delay-100">
+  <!-- Interests -->
+  <section>
+    <div class="section-label">Interests</div>
+    <div class="interests">
+      <span class="interest-pill">🎵 Music</span>
+      <span class="interest-pill">🍥 Animanga</span>
+      <span class="interest-pill">💻 Tech</span>
+      <span class="interest-pill">🎮 Gaming</span>
+      <span class="interest-pill">🏸 Badminton</span>
+    </div>
+  </section>
 
-            <!-- Interests Grid -->
-            <div class="mb-8 fade-in-up delay-200">
-                <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Interests</h3>
-                <div class="flex flex-wrap gap-3">
-                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-music mr-2 text-cat-blue"></i>Music</span>
-                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-film mr-2 text-cat-peach"></i>Animanga</span>
-                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-laptop-code mr-2 text-cat-teal"></i>Tech</span>
-                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text"><i class="fas fa-gamepad mr-2 text-cat-green"></i>Gaming</span>
-                    <span class="px-4 py-2 rounded-lg bg-cat-surface0 hover:bg-cat-surface1 border border-cat-surface1 hover:border-cat-mauve/50 transition-colors cursor-none text-sm text-cat-text flex items-center">
-                        <svg class="w-4 h-4 mr-2 text-cat-yellow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 20a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" fill="currentColor"/>
-                            <path d="M9 15.5 5 4l4 3 3-5 3 5 4-3-4 11.5"/>
-                        </svg>
-                        Badminton
-                    </span>
-                </div>
-            </div>
+  <!-- Connect -->
+  <section>
+    <div class="section-label">Connect</div>
+    <div class="links-grid">
 
-            <!-- Social Links -->
-            <div class="mb-8 fade-in-up delay-300">
-                <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Connect</h3>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    
-                    <a href="https://x.com/yuriko_o1" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <i class="fa-brands fa-x-twitter text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-xs text-cat-subtext0">Twitter/X</span>
-                    </a>
+      <a class="link-card" href="https://x.com/yuriko_o1" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.23H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </span>
+        Twitter / X
+      </a>
 
-                    <a href="https://discord.com/users/947775206141870111" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <i class="fab fa-discord text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-xs text-cat-subtext0">Discord</span>
-                    </a>
+      <a class="link-card" href="https://discord.com/users/947775206141870111" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
+        </span>
+        Discord
+      </a>
 
-                    <a href="https://github.com/yurikodesu" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <i class="fab fa-github text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-xs text-cat-subtext0">GitHub</span>
-                    </a>
+      <a class="link-card" href="https://github.com/yurikodesu" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        </span>
+        GitHub
+      </a>
 
-                    <a href="https://www.reddit.com/user/icedchocolatecake/" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <i class="fab fa-reddit-alien text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-xs text-cat-subtext0">Reddit</span>
-                    </a>
+      <a class="link-card" href="https://www.reddit.com/user/icedchocolatecake/" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+        </span>
+        Reddit
+      </a>
 
-                    <a href="https://open.spotify.com/user/31jpbocyu5ppi2z6o2xym2k5ai6y?si=1579fd4c63a24656" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <i class="fab fa-spotify text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-xs text-cat-subtext0">Spotify</span>
-                    </a>
+      <a class="link-card" href="https://open.spotify.com/user/31jpbocyu5ppi2z6o2xym2k5ai6y?si=1579fd4c63a24656" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+        </span>
+        Spotify
+      </a>
 
-                    <a href="https://www.last.fm/user/itsyuriko" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <i class="fab fa-lastfm text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-xs text-cat-subtext0">Last.fm</span>
-                    </a>
+      <a class="link-card" href="https://www.last.fm/user/itsyuriko" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24"><path d="M10.584 17.209l-.88-2.392s-1.43 1.596-3.573 1.596c-1.897 0-3.244-1.65-3.244-4.289 0-3.381 1.704-4.59 3.381-4.59 2.419 0 3.188 1.567 3.849 3.574l.88 2.75c.88 2.669 2.529 4.811 7.283 4.811 3.409 0 5.719-1.044 5.719-3.793 0-2.226-1.265-3.381-3.629-3.931l-1.757-.385c-1.21-.275-1.568-.77-1.568-1.594 0-.935.742-1.484 1.952-1.484 1.32 0 2.034.495 2.144 1.677l2.749-.33c-.22-2.474-1.926-3.491-4.729-3.491-2.474 0-4.894.935-4.894 3.931 0 1.869.908 3.051 3.188 3.601l1.869.44c1.374.33 1.869.908 1.869 1.703 0 1.016-.989 1.43-2.859 1.43-2.772 0-3.929-1.457-4.591-3.465l-.902-2.75C11.854 7.717 10.088 6 6.137 6 2.252 6 0 8.474 0 12.179c0 3.574 1.814 6.236 5.967 6.236 3.079.001 4.617-1.206 4.617-1.206z"/></svg>
+        </span>
+        Last.fm
+      </a>
 
-                    <a href="https://anilist.co/user/Yuriko/" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <div class="text-2xl font-black mb-2 group-hover:scale-110 transition-transform leading-none h-8 flex items-center justify-center">AL</div>
-                        <span class="text-xs text-cat-subtext0">AniList</span>
-                    </a>
+      <a class="link-card" href="https://anilist.co/user/Yuriko/" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24"><path d="M6.361 2.943 0 21.056h4.942l1.077-3.133H11.4l1.052 3.133H22.9c.71 0 1.1-.392 1.1-1.101V17.53c0-.71-.39-1.1-1.1-1.1h-6.483V4.045c0-.71-.392-1.102-1.101-1.102h-3.532c-.71 0-1.1.392-1.1 1.102v1.25L8.967 2.943c-.252-.755-.971-1.102-1.75-.919-.78.182-1.078.807-1.078.807l.222.112Zm1.513 5.516 1.789 5.26H6.087l1.787-5.26Z"/></svg>
+        </span>
+        AniList
+      </a>
 
-                     <a href="https://music.apple.com/profile/yurikodesu632" target="_blank" class="social-link group flex flex-col items-center justify-center p-4 rounded-xl bg-cat-surface0/40 hover:bg-cat-surface0 border border-cat-surface1/50 hover:border-cat-mauve/30">
-                        <i class="fab fa-apple text-2xl mb-2 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-xs text-cat-subtext0">Apple Music</span>
-                    </a>
+      <a class="link-card" href="https://music.apple.com/profile/yurikodesu632" target="_blank" rel="noopener">
+        <span class="link-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="fill:none"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </span>
+        Apple Music
+      </a>
 
-                </div>
-            </div>
+    </div>
+  </section>
 
-            <!-- Discord Widget -->
-            <div class="mb-8 fade-in-up delay-400">
-                <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Discord Status</h3>
-                <div class="flex justify-center">
-                    <a href="https://discord.com/users/947775206141870111" target="_blank">
-                        <img src="https://discord.c99.nl/widget/theme-3/947775206141870111.png" alt="Discord Status" loading="lazy" class="rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300">
-                    </a>
-                </div>
-            </div>
+  <!-- Discord Status -->
+  <section>
+    <div class="section-label">Discord Status</div>
+    <div class="widget-card">
+      <a href="https://discord.com/users/947775206141870111" target="_blank" rel="noopener">
+        <img src="https://discord.c99.nl/widget/theme-3/947775206141870111.png" alt="Discord Status" />
+      </a>
+    </div>
+  </section>
 
-            <!-- Last.fm Widget -->
-            <div class="mb-8 fade-in-up delay-500">
-                <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Recently Played</h3>
-                <div class="flex justify-center">
-                    <a href="https://www.last.fm/user/itsyuriko" target="_blank" class="w-full max-w-md">
-                        <img src="https://lastfm-recently-played.vercel.app/api?user=itsyuriko" alt="Last.fm Recently Played" loading="lazy" class="rounded-xl shadow-lg hover:scale-[1.02] transition-transform duration-300 w-full">
-                    </a>
-                </div>
-            </div>
+  <!-- Recently Played -->
+  <section>
+    <div class="section-label">Recently Played</div>
+    <div class="widget-card">
+      <a href="https://www.last.fm/user/itsyuriko" target="_blank" rel="noopener">
+        <img src="https://lastfm-recently-played.vercel.app/api?user=itsyuriko" alt="Last.fm Recently Played" />
+      </a>
+    </div>
+  </section>
 
-            <!-- Playlist Embed -->
-            <div class="fade-in-up delay-600">
-                <h3 class="text-sm uppercase tracking-wider text-cat-lavender font-bold mb-4 drop-shadow-md">Playlist</h3>
-                <div class="rounded-xl overflow-hidden flex justify-center">
-                    <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/in/playlist/yukimidayo/pl.u-jV89DaWFaRmYL25"></iframe>
-                </div>
-            </div>
+  <!-- Playlist -->
+  <section>
+    <div class="section-label">Playlist</div>
+    <div class="music-embed">
+      <iframe
+        allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+        frameborder="0"
+        width="660"
+        height="450"
+        sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+        src="https://embed.music.apple.com/in/playlist/yukimidayo/pl.u-jV89DaWFaRmYL25"
+        title="yukimidayo playlist">
+      </iframe>
+    </div>
+  </section>
 
-            <div class="mt-8 text-center fade-in-up delay-700">
-                <p class="text-xs text-cat-overlay0">© 2025 Yuriko</p>
-            </div>
-        </div>
-    </main>
+  <footer>
+    <span>©</span> 2025 Yuriko
+  </footer>
 
-    <script>
-        // --- Theme Toggle Logic ---
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        const htmlElement = document.documentElement;
+</main>
 
-        themeToggleBtn.addEventListener('click', () => {
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                htmlElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-            particles.forEach(p => p.color = getRandomColor());
-        });
+<script>
+  // Sakura petals
+  const container = document.getElementById('sakura');
+  const count = 18;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${3 + Math.random() * 5}px;
+      height: ${3 + Math.random() * 5}px;
+      opacity: ${0.1 + Math.random() * 0.3};
+      animation-duration: ${12 + Math.random() * 20}s;
+      animation-delay: ${-Math.random() * 20}s;
+    `;
+    container.appendChild(p);
+  }
 
-        // --- Custom Cursor & Trail Logic ---
-        const cursor = document.getElementById('cursor');
-        const cursorDot = document.getElementById('cursor-dot');
-        const canvas = document.getElementById('trail-canvas');
-        const ctx = canvas.getContext('2d');
+  // 3D tilt effect
+  const tiltEls = document.querySelectorAll('.link-card, .interest-pill, .widget-card, .music-embed');
+  const MAX_TILT = 12;
+  const SCALE = 1.04;
 
-        const isTouchDevice = window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+  tiltEls.forEach(el => {
+    el.addEventListener('mousemove', e => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const cx = rect.width / 2;
+      const cy = rect.height / 2;
+      const rotX = ((y - cy) / cy) * -MAX_TILT;
+      const rotY = ((x - cx) / cx) * MAX_TILT;
+      el.style.transform = `perspective(600px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale(${SCALE})`;
+      el.style.boxShadow = `${-rotY * 0.6}px ${rotX * 0.6}px 24px rgba(240,163,187,0.12)`;
+    });
 
-        let mouseX = -100;
-        let mouseY = -100;
-        let cursorX = -100;
-        let cursorY = -100;
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)';
+      el.style.transition = 'transform 0.45s cubic-bezier(.03,.98,.52,.99), box-shadow 0.45s ease, border-color 0.2s, color 0.2s, background 0.2s';
+      el.style.boxShadow = 'none';
+    });
 
-        let resizeTimeout;
-        function resizeCanvas() {
-            if (isTouchDevice) return; 
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            }, 100);
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        document.addEventListener('mousemove', (e) => {
-            if (isTouchDevice) return; 
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        const interactables = document.querySelectorAll('a, button, .group');
-        interactables.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                if (!isTouchDevice) document.body.classList.add('hovering');
-            });
-            el.addEventListener('mouseleave', () => {
-                if (!isTouchDevice) document.body.classList.remove('hovering');
-            });
-        });
-
-        function getRandomColor() {
-            const isDark = htmlElement.classList.contains('dark');
-            const colors = isDark 
-                ? ['#cba6f7', '#f5c2e7', '#89b4fa'] 
-                : ['#8839ef', '#ea76cb', '#1e66f5'];
-            return colors[Math.floor(Math.random() * colors.length)];
-        }
-
-        // --- Particles Pool ---
-        const MAX_PARTICLES = 20; 
-        const particles = new Array(MAX_PARTICLES).fill(null);
-        let particleIndex = 0;
-
-        class Particle {
-            constructor() {
-                this.active = false;
-                this.x = 0;
-                this.y = 0;
-                this.size = 0;
-                this.speedX = 0;
-                this.speedY = 0;
-                this.life = 0;
-                this.color = '';
-            }
-
-            spawn(x, y) {
-                this.x = x;
-                this.y = y;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-                this.life = 1; 
-                this.color = getRandomColor();
-                this.active = true;
-            }
-
-            update() {
-                if (!this.active) return;
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.life -= 0.03;
-                if (this.size > 0.1) this.size -= 0.05;
-                if (this.life <= 0) this.active = false;
-            }
-
-            draw() {
-                if (!this.active) return;
-                ctx.fillStyle = this.color;
-                ctx.globalAlpha = this.life;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.globalAlpha = 1;
-            }
-        }
-
-        for (let i = 0; i < MAX_PARTICLES; i++) {
-            particles[i] = new Particle();
-        }
-
-        function animate() {
-            if (isTouchDevice || document.hidden) {
-                requestAnimationFrame(animate);
-                return;
-            }
-
-            let distX = mouseX - cursorX;
-            let distY = mouseY - cursorY;
-            
-            cursorX += distX * 0.15;
-            cursorY += distY * 0.15;
-
-            cursor.style.left = cursorX + 'px';
-            cursor.style.top = cursorY + 'px';
-            cursorDot.style.left = mouseX + 'px';
-            cursorDot.style.top = mouseY + 'px';
-
-            if (Math.abs(distX) > 5 || Math.abs(distY) > 5) {
-                if (Math.random() > 0.5) { 
-                    particles[particleIndex].spawn(cursorX, cursorY);
-                    particleIndex = (particleIndex + 1) % MAX_PARTICLES;
-                }
-            }
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < MAX_PARTICLES; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-    </script>
+    el.addEventListener('mouseenter', () => {
+      el.style.transition = 'transform 0.1s ease-out, box-shadow 0.1s ease, border-color 0.2s, color 0.2s, background 0.2s';
+    });
+  });
+</script>
 </body>
 </html>
