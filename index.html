@@ -307,8 +307,7 @@
     overflow: hidden;
     border: 1px solid var(--border);
     display: block;
-    width: calc(100vw - 48px);
-    max-width: 1200px;
+    width: 500px;
     margin: 0 auto;
   }
   .music-embed iframe {
@@ -332,11 +331,11 @@
   }
 
   section.playlist-section {
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    padding-left: 24px;
-    padding-right: 24px;
+    margin-left: 0;
+    margin-right: 0;
   }
+
+  @keyframes fadeUp {
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
