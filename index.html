@@ -4,9 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Yuriko | Bio</title>
+<link rel="icon" type="image/png" href="https://iili.io/fucrBTv.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -24,7 +25,7 @@
     --text: #ede8f2;
     --text-muted: #9d93b0;
     --text-dim: #5e576e;
-    --ff-head: 'Shippori Mincho', serif;
+    --ff-head: 'Kaisei Decol', serif;
     --ff-body: 'DM Sans', sans-serif;
     --radius: 16px;
     --radius-sm: 10px;
@@ -230,7 +231,7 @@
     gap: 8px;
   }
   /* 3D tilt setup */
-  .link-card, .interest-pill, .widget-card, .music-embed {
+  .link-card, .interest-pill, .widget-card {
     transform-style: preserve-3d;
     will-change: transform;
   }
@@ -306,7 +307,8 @@
     overflow: hidden;
     border: 1px solid var(--border);
     display: block;
-    width: fit-content;
+    width: calc(100vw - 48px);
+    max-width: 1200px;
     margin: 0 auto;
   }
   .music-embed iframe {
@@ -329,7 +331,12 @@
     opacity: 0.6;
   }
 
-  @keyframes fadeUp {
+  section.playlist-section {
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    padding-left: 24px;
+    padding-right: 24px;
+  }
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
@@ -467,16 +474,15 @@
   </section>
 
   <!-- Playlist -->
-  <section>
+  <section class="playlist-section">
     <div class="section-label">Playlist</div>
     <div class="music-embed">
       <iframe
         allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
         frameborder="0"
-        width="660"
-        height="450"
+        height="300"
         sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-        src="https://embed.music.apple.com/in/playlist/yukimidayo/pl.u-jV89DaWFaRmYL25"
+        src="https://embed.music.apple.com/in/playlist/yukimidayo/pl.u-jV89DaWFaRmYL25?theme=auto"
         title="yukimidayo playlist">
       </iframe>
     </div>
@@ -507,7 +513,7 @@
   }
 
   // 3D tilt effect
-  const tiltEls = document.querySelectorAll('.link-card, .interest-pill, .widget-card, .music-embed');
+  const tiltEls = document.querySelectorAll('.link-card, .interest-pill, .widget-card');
   const MAX_TILT = 12;
   const SCALE = 1.04;
 
