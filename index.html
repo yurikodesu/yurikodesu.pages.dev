@@ -129,6 +129,12 @@
       </div>
       <h1 class="mt-4 text-3xl font-extrabold tracking-tight" style="color: var(--heading);">Kinosaki</h1>
       <p class="mt-1 text-sm font-medium" style="color: var(--muted);">he/him · India · Jan 31</p>
+      
+      <!-- Live Indian Standard Time (IST) -->
+      <div class="mt-1.5 flex items-center gap-1.5 text-xs font-medium" style="color: var(--primary);">
+        <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span id="localTime">--:--:-- -- (IST)</span>
+      </div>
     </header>
 
     <!-- Bio + tags card -->
@@ -236,6 +242,23 @@
         theme = theme === 'dark' ? 'light' : 'dark'; 
         applyTheme(theme); 
       });
+
+      /* ---- Live Time (India - IST) ---- */
+      const localTimeEl = document.getElementById('localTime');
+      function updateClock() {
+        if (!localTimeEl) return;
+        const now = new Date();
+        const formatted = new Intl.DateTimeFormat('en-US', {
+          timeZone: 'Asia/Kolkata',
+          hour: 'numeric',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        }).format(now);
+        localTimeEl.textContent = `${formatted} (IST)`;
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
 
       /* ---- Dynamic edge glow spotlight tracking ---- */
       document.querySelectorAll('.card').forEach((card) => {
