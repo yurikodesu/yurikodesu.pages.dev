@@ -142,6 +142,9 @@
 </head>
 <body class="min-h-screen antialiased overflow-x-hidden">
 
+  <!-- Sakura Petals Falling Canvas -->
+  <canvas id="sakuraCanvas" class="pointer-events-none fixed inset-0 z-0"></canvas>
+
   <!-- Click to Enter Overlay (guns.lol style) -->
   <div id="enterOverlay" class="fixed inset-0 z-[100] flex flex-col items-center justify-center backdrop-blur-2xl transition-all duration-700 cursor-pointer select-none" style="background: color-mix(in srgb, var(--bg) 92%, transparent);">
     <div class="flex flex-col items-center gap-3 text-center px-4">
@@ -196,7 +199,7 @@
     <svg id="iconSun" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
   </button>
 
-  <main class="relative mx-auto flex min-h-screen max-w-md flex-col gap-4 px-4 pt-10 pb-28">
+  <main class="relative z-10 mx-auto flex min-h-screen max-w-md flex-col gap-4 px-4 pt-10 pb-28">
 
     <!-- Profile header -->
     <header class="fade-up flex flex-col items-center text-center">
@@ -450,6 +453,87 @@
           volMuteIcon.classList.add('hidden');
         }
       });
+
+      /* ---- Sakura Falling Petals Rain System ---- */
+      const canvas = document.getElementById('sakuraCanvas');
+      const ctx = canvas.getContext('2d');
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      const petals = [];
+      const TOTAL_PETALS = 40;
+      const petalColors = [
+        'rgba(255, 183, 197, ',
+        'rgba(255, 197, 211, ',
+        'rgba(247, 142, 168, ',
+        'rgba(255, 218, 225, '
+      ];
+
+      class Petal {
+        constructor() {
+          this.init(true);
+        }
+        init(randomY = false) {
+          this.x = Math.random() * (width + 100) - 50;
+          this.y = randomY ? Math.random() * height : -20 - Math.random() * 50;
+          this.size = Math.random() * 7 + 7;
+          this.speedY = Math.random() * 1.2 + 0.9;
+          this.speedX = Math.random() * 1.2 - 0.2;
+          this.rotation = Math.random() * Math.PI * 2;
+          this.rotationSpeed = (Math.random() - 0.5) * 0.025;
+          this.flip = Math.random() * Math.PI;
+          this.flipSpeed = Math.random() * 0.03 + 0.015;
+          this.sway = Math.random() * Math.PI * 2;
+          this.swaySpeed = Math.random() * 0.02 + 0.01;
+          this.opacity = Math.random() * 0.45 + 0.35;
+          this.colorBase = petalColors[Math.floor(Math.random() * petalColors.length)];
+        }
+        update() {
+          this.y += this.speedY;
+          this.x += this.speedX + Math.sin(this.sway) * 0.7;
+          this.sway += this.swaySpeed;
+          this.rotation += this.rotationSpeed;
+          this.flip += this.flipSpeed;
+
+          if (this.y > height + 20 || this.x > width + 60 || this.x < -60) {
+            this.init();
+          }
+        }
+        draw() {
+          ctx.save();
+          ctx.translate(this.x, this.y);
+          ctx.rotate(this.rotation);
+          ctx.scale(1, Math.cos(this.flip));
+
+          ctx.beginPath();
+          ctx.moveTo(0, -this.size);
+          ctx.bezierCurveTo(this.size * 0.6, -this.size * 0.8, this.size * 0.8, 0, 0, this.size * 0.9);
+          ctx.bezierCurveTo(-this.size * 0.8, 0, -this.size * 0.6, -this.size * 0.8, 0, -this.size);
+          ctx.fillStyle = this.colorBase + this.opacity + ')';
+          ctx.fill();
+
+          ctx.restore();
+        }
+      }
+
+      for (let i = 0; i < TOTAL_PETALS; i++) {
+        petals.push(new Petal());
+      }
+
+      function animateSakura() {
+        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < petals.length; i++) {
+          petals[i].update();
+          petals[i].draw();
+        }
+        requestAnimationFrame(animateSakura);
+      }
+      animateSakura();
     })();
   </script>
 
