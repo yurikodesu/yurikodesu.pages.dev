@@ -25,6 +25,7 @@
       --chip-a-text: #FFD6E6;
       --chip-b: rgba(56, 38, 76, 0.75);
       --chip-b-text: #EBD9F5;
+      --slider-track: rgba(255, 255, 255, 0.18);
     }
     html.light {
       --bg: #FDF5F8;
@@ -41,6 +42,7 @@
       --chip-a-text: #781E3B;
       --chip-b: rgba(240, 225, 240, 0.9);
       --chip-b-text: #4E274D;
+      --slider-track: rgba(0, 0, 0, 0.14);
     }
 
     body { 
@@ -100,13 +102,91 @@
     .tile { background: var(--tile); }
     .tile:hover { background: var(--tile-hover); }
 
-    /* Pill hover style */
     .pill:hover {
       filter: brightness(1.15);
+    }
+
+    /* Custom Sliders for Audio Player */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--slider-track);
+      border-radius: 9999px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 40%, transparent);
+      transition: transform 0.15s ease;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--primary);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 0 6px color-mix(in srgb, var(--primary) 40%, transparent);
+      transition: transform 0.15s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.3);
     }
   </style>
 </head>
 <body class="min-h-screen antialiased overflow-x-hidden">
+
+  <!-- Click to Enter Overlay (guns.lol style) -->
+  <div id="enterOverlay" class="fixed inset-0 z-[100] flex flex-col items-center justify-center backdrop-blur-2xl transition-all duration-700 cursor-pointer select-none" style="background: color-mix(in srgb, var(--bg) 92%, transparent);">
+    <div class="flex flex-col items-center gap-3 text-center px-4">
+      <div class="h-16 w-16 rounded-full border-2 p-1 mb-2 animate-bounce" style="border-color: var(--primary);">
+        <img src="https://file.garden/aYCdlBqIC3TWlgqn/Kinosaki.Mei.full.4611502-modified.png" alt="Avatar" class="h-full w-full rounded-full object-cover">
+      </div>
+      <p class="text-sm font-semibold tracking-widest uppercase animate-pulse" style="color: var(--primary);">[ click anywhere to enter ]</p>
+      <span class="text-xs opacity-60" style="color: var(--muted);">♪ SO TIRED</span>
+    </div>
+  </div>
+
+  <!-- Audio Element -->
+  <audio id="bgAudio" src="https://file.garden/aYCdlBqIC3TWlgqn/SO%20TIRED.mp3" loop preload="auto"></audio>
+
+  <!-- Floating Audio Player -->
+  <div id="audioPlayer" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-md rounded-2xl border p-3 backdrop-blur-xl shadow-2xl flex flex-col gap-2 transition-all duration-300 opacity-0 pointer-events-none" style="background: var(--surface); border-color: var(--border);">
+    <div class="flex items-center justify-between gap-3">
+      <!-- Play/Pause Button -->
+      <button id="playPauseBtn" aria-label="Play or Pause" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition hover:scale-105 active:scale-95" style="background: var(--tile); border-color: var(--border); color: var(--primary);">
+        <!-- Play Icon -->
+        <svg id="playIcon" class="h-4 w-4 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <!-- Pause Icon -->
+        <svg id="pauseIcon" class="hidden h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+      </button>
+
+      <!-- Track Info & Duration -->
+      <div class="flex flex-col flex-1 min-w-0">
+        <div class="flex items-center justify-between text-xs font-semibold">
+          <span class="truncate pr-2" style="color: var(--heading);">SO TIRED</span>
+          <span id="timeDisplay" class="shrink-0 text-[11px] font-mono opacity-80" style="color: var(--muted);">0:00 / 0:00</span>
+        </div>
+        <!-- Seeker Bar -->
+        <input id="seekBar" type="range" min="0" max="100" value="0" class="mt-1.5 h-1.5 w-full cursor-pointer" />
+      </div>
+
+      <!-- Volume Slider -->
+      <div class="flex items-center gap-1.5 shrink-0 pl-1">
+        <button id="muteBtn" aria-label="Mute / Unmute" class="text-xs transition hover:opacity-80" style="color: var(--primary);">
+          <svg id="volHighIcon" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <svg id="volMuteIcon" class="hidden h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        </button>
+        <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.75" class="h-1.5 w-14 cursor-pointer" />
+      </div>
+    </div>
+  </div>
 
   <!-- Theme toggle -->
   <button id="themeToggle" aria-label="Toggle color theme"
@@ -116,7 +196,7 @@
     <svg id="iconSun" class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
   </button>
 
-  <main class="relative mx-auto flex min-h-screen max-w-md flex-col gap-4 px-4 py-10">
+  <main class="relative mx-auto flex min-h-screen max-w-md flex-col gap-4 px-4 pt-10 pb-28">
 
     <!-- Profile header -->
     <header class="fade-up flex flex-col items-center text-center">
@@ -269,6 +349,106 @@
           card.style.setProperty('--mouse-x', `${x}px`);
           card.style.setProperty('--mouse-y', `${y}px`);
         });
+      });
+
+      /* ---- Click to Enter & Audio Player Controller ---- */
+      const enterOverlay = document.getElementById('enterOverlay');
+      const audioPlayer = document.getElementById('audioPlayer');
+      const audio = document.getElementById('bgAudio');
+      const playPauseBtn = document.getElementById('playPauseBtn');
+      const playIcon = document.getElementById('playIcon');
+      const pauseIcon = document.getElementById('pauseIcon');
+      const seekBar = document.getElementById('seekBar');
+      const timeDisplay = document.getElementById('timeDisplay');
+      const volumeSlider = document.getElementById('volumeSlider');
+      const muteBtn = document.getElementById('muteBtn');
+      const volHighIcon = document.getElementById('volHighIcon');
+      const volMuteIcon = document.getElementById('volMuteIcon');
+
+      let previousVolume = 0.75;
+      audio.volume = 0.75;
+
+      function formatTime(seconds) {
+        if (isNaN(seconds) || seconds < 0) return '0:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      }
+
+      function updatePlayState(isPlaying) {
+        if (isPlaying) {
+          playIcon.classList.add('hidden');
+          pauseIcon.classList.remove('hidden');
+        } else {
+          playIcon.classList.remove('hidden');
+          pauseIcon.classList.add('hidden');
+        }
+      }
+
+      // Enter site on click
+      enterOverlay.addEventListener('click', () => {
+        enterOverlay.classList.add('opacity-0', 'pointer-events-none');
+        audioPlayer.classList.remove('opacity-0', 'pointer-events-none');
+        audio.play().then(() => {
+          updatePlayState(true);
+        }).catch(() => {
+          updatePlayState(false);
+        });
+      });
+
+      // Play / Pause toggle
+      playPauseBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          audio.play();
+          updatePlayState(true);
+        } else {
+          audio.pause();
+          updatePlayState(false);
+        }
+      });
+
+      // Update progress and time
+      audio.addEventListener('timeupdate', () => {
+        if (!isNaN(audio.duration) && audio.duration > 0) {
+          const progress = (audio.currentTime / audio.duration) * 100;
+          seekBar.value = progress;
+          timeDisplay.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+        }
+      });
+
+      // Seek audio
+      seekBar.addEventListener('input', () => {
+        if (!isNaN(audio.duration)) {
+          audio.currentTime = (seekBar.value / 100) * audio.duration;
+        }
+      });
+
+      // Volume change
+      volumeSlider.addEventListener('input', () => {
+        audio.volume = volumeSlider.value;
+        if (audio.volume === 0) {
+          volHighIcon.classList.add('hidden');
+          volMuteIcon.classList.remove('hidden');
+        } else {
+          volHighIcon.classList.remove('hidden');
+          volMuteIcon.classList.add('hidden');
+        }
+      });
+
+      // Mute / Unmute
+      muteBtn.addEventListener('click', () => {
+        if (audio.volume > 0) {
+          previousVolume = audio.volume;
+          audio.volume = 0;
+          volumeSlider.value = 0;
+          volHighIcon.classList.add('hidden');
+          volMuteIcon.classList.remove('hidden');
+        } else {
+          audio.volume = previousVolume || 0.75;
+          volumeSlider.value = audio.volume;
+          volHighIcon.classList.remove('hidden');
+          volMuteIcon.classList.add('hidden');
+        }
       });
     })();
   </script>
